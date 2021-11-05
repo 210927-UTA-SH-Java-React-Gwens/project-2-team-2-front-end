@@ -21,7 +21,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 //changes
 @Entity
-@Table(name="posts")
+@Table(name="listings")
 public class Listing {
 	public enum Category { Collectibles, Electronics, Clothing, Sports, Music, Movies, Home, Toys, Other };
 
@@ -35,20 +35,26 @@ public class Listing {
 	private int price;
 	
 	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="poster_id")
 	private User poster;
+	
+	@Column(name="title")
+	private String title;
+	
+	@Column(name="content")
+	private String content;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "purchaser_id")
 	private User purchaser = null;
 	
 
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "watch_junction", joinColumns = { @JoinColumn(name = "listing_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "user_id") })
+			@JoinColumn(name = "watcher_id") })
 	private List<User> watchers;
 
-	@OneToMany(mappedBy="listing", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="id", cascade=CascadeType.ALL)
 	@JsonIgnore
 	private List<ListingImage> images;
 	

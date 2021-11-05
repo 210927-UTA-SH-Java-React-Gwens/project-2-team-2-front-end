@@ -24,6 +24,7 @@ public class UserService {
 			uDao.save(u);
 			return u;
 		} catch(Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}

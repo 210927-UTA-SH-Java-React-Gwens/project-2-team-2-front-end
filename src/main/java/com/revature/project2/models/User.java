@@ -49,11 +49,11 @@ public class User {
 	@JsonIgnore
 	private List<Listing> purchases;
 	
-	@OneToMany(mappedBy="message")
+	@OneToMany(mappedBy="id")
 	@JsonIgnore
 	private List<Message> sent_messages;
 	
-	@OneToMany(mappedBy="message")
+	@OneToMany(mappedBy="id")
 	@JsonIgnore
 	private List<Message> received_messages;
 
@@ -64,7 +64,6 @@ public class User {
 	public User(int id, String username, String email, int funds, String password, List<Listing> listings,
 			List<Listing> bookmarks, List<Listing> purchases, List<Message> sent_messages,
 			List<Message> received_messages) {
-		super();
 		this.id = id;
 		this.username = username;
 		this.email = email;
@@ -75,6 +74,12 @@ public class User {
 		this.purchases = purchases;
 		this.sent_messages = sent_messages;
 		this.received_messages = received_messages;
+	}
+	
+	public User(String username, String email, String password) {
+		this.username = username;
+		this.email = email;
+		this.password = password;
 	}
 
 	public int getId() {
@@ -132,13 +137,41 @@ public class User {
 	public void setPurchases(List<Listing> purchases) {
 		this.purchases = purchases;
 	}
+	
+	
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public List<Message> getSent_messages() {
+		return sent_messages;
+	}
+
+	public void setSent_messages(List<Message> sent_messages) {
+		this.sent_messages = sent_messages;
+	}
+
+	public List<Message> getReceived_messages() {
+		return received_messages;
+	}
+
+	public void setReceived_messages(List<Message> received_messages) {
+		this.received_messages = received_messages;
+	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", funds=" + funds + ", password=" + password
-				+ ", listings=" + listings + ", bookmarks=" + bookmarks + ", purchases=" + purchases
+		return "User [id=" + id + ", username=" + username + ", email=" + email + ", funds=" + funds + ", password="
+				+ password + ", listings=" + listings + ", bookmarks=" + bookmarks + ", purchases=" + purchases
 				+ ", sent_messages=" + sent_messages + ", received_messages=" + received_messages + "]";
 	}
+
+	
 
 	
 	
