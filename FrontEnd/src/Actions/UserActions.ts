@@ -8,7 +8,7 @@ interface GetUser {
 export const getUser = (user:GetUser) => async (dispatch: any) => {
 
     try{
-    const res = await axios.get('http://localhost:8080/user/');
+    const res = await axios.get('http://localhost:8080/user/u?id=1');
     
 
     let user = {
