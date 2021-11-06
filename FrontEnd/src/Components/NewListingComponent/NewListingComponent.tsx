@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import { updateFor } from "typescript";
 import "./NewListing.css";
 
 export const NewListing: React.FC<any> = () => {
@@ -16,39 +19,71 @@ export const NewListing: React.FC<any> = () => {
 
   const [customView, setCustomView] = useState(false);
   const [fsetDisabled, setFsetDisabled] = useState(false);
+  const [customCat, setCustomCat] = useState("");
+  const [formData, setFormData] = useState({
+    title: "",
+    price: 0,
+    desc: "",
+    category: "",
+  });
+
+  let updateFormData = (name: string, value: any) => {
+    setFormData({ ...formData, [name]: value });
+  };
 
   let formatAsMoney = (value: string) => {
-    let x: string = "";
-    let decimal: number = -1;
-    let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+    let x: string = "",
+        decimal: number = -1, // -1: No decimal, 0: decimal pt, 1: 1 number after point, 2: 2 numbers after point
+        sz: number = 0,
+        index: number = 0;
 
-    for (let i of value) {
+    // Get number of numeric chars - used for placing commas
+    for (let i of value)
+      if (i == ".") break;
+      else if (!isNaN(Number(i))) sz++;
+
+    // Iterate over every char in value
+    for (let char of value) {
       // No decimal and i is decimal point
-      if (decimal === -1 && i === ".") {
-        x += i;
+      if (decimal === -1 && char === ".") {
+        x += char;
         decimal = 0;
+        index = sz + 1;
       }
 
       // Nonnumeric character
-      else if (!(i in numbers)) continue;
+      else if (isNaN(Number(char)) || char === " ")
+        continue;
+      
       // Decimal has been set
       else if (decimal > -1) {
         decimal++;
-        x += i;
+        x += char;
         if (decimal === 2) break;
       }
 
       // Just a number
-      else x += i;
+      else {
+        x += char;
+        if (++index < sz && (sz - index) % 3 === 0)
+            x += ",";
+      }
     }
-    return x;
+
+    switch (decimal) {
+      case -1: return x + ".00";
+      case  0: return x +  "00";
+      case  1: return x +   "0";
+      default: return x;
+    }
   };
 
-  let formSubmit = (event:any) => {
+  let formSubmit = (event: any) => {
     event.preventDefault();
 
-    setFsetDisabled(true);
-  }
+    //setFsetDisabled(true);
+    console.log(formData);
+  };
 
   return (
     <div id="new-listing">
@@ -57,16 +92,25 @@ export const NewListing: React.FC<any> = () => {
           <div id="nl-fields">
             <div id="nl-simple">
               <label htmlFor="title">Listing title</label>
-              <input id="nl-title" type="text" name="title" />
+              <input
+                id="nl-title"
+                type="text"
+                name="title"
+                placeholder="Title..."
+                onChange={(e) => updateFormData("title", e.target.value)}
+                required
+              />
 
               <label htmlFor="price">Price</label>
               <div id="price">
-                <span style={{marginRight: '.2em'}}>$</span>
+                <span style={{ marginRight: ".2em" }}>$</span>
                 <input
                   name="price"
-                  onChange={(e) =>
-                    (e.target.value = formatAsMoney(e.target.value))
-                  }
+                  onBlur={(e) => {
+                    e.target.value = formatAsMoney(e.target.value);
+                    updateFormData("price", Number(e.target.value));
+                  }}
+                  placeholder="0.00"
                 />
               </div>
 
@@ -74,9 +118,19 @@ export const NewListing: React.FC<any> = () => {
               <select
                 name="category"
                 onChange={(e) => {
-                  setCustomView(e.target.value === "Custom");
+                  if (e.target.value === "Custom") {
+                    setCustomView(true);
+                    updateFormData("category", customCat);
+                  } else {
+                    setCustomView(false);
+                    updateFormData("category", e.target.value);
+                  }
                 }}
+                required
               >
+                <option disabled selected>
+                  Select a category
+                </option>
                 {categories.map((cat) => (
                   <option value={cat}>{cat}</option>
                 ))}
@@ -92,13 +146,22 @@ export const NewListing: React.FC<any> = () => {
                 type="text"
                 name="custom"
                 placeholder="Custom category..."
+                onChange={(e) => {
+                  setCustomCat(e.target.value);
+                  updateFormData("category", e.target.value);
+                }}
               />
             </div>
 
             <div id="nl-desc-div">
               <label htmlFor="desc">Description</label>
               <br />
-              <textarea name="desc" placeholder="Description..."></textarea>
+              <ReactQuill
+                id="description"
+                theme="snow"
+                placeholder="Description..."
+                onChange={(value) => updateFormData("desc", value)}
+              />
             </div>
           </div>
           <input

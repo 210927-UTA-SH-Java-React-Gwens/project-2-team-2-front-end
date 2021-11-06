@@ -39,7 +39,7 @@
   text-align: right;
 }
 
-input, textarea, select {
+input, select {
   padding: .5em;
   border: 1px solid #dedede;
   border-radius: 8px;
@@ -50,19 +50,13 @@ input, textarea, select {
   width:60%;
 }
 
-textarea {
-  height: auto;
-  margin: 0;
-  right: 0;
-  left: 0;
-  width: 80%;
-  height: 70%;
-  resize: none;
-}
-
-input:focus, textarea:focus, select {
+input:focus, #description:focus, select {
   outline: none;
   border: 1px solid #cacaca;
+}
+
+#nl-desc-div:focus {
+  background-color: black;
 }
 
 #nl-submit:active {
