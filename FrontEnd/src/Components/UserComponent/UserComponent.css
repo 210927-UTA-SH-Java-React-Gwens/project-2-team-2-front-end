@@ -1,0 +1,11 @@
+#outer-border {
+    padding: 1em;
+    border: 2px solid #bebebe;
+        border-radius:15px;
+    margin: 0;
+    top: 4em;
+    bottom: 1em;
+    left: 1em;
+    right: 1em;
+    padding: 1em;
+}
