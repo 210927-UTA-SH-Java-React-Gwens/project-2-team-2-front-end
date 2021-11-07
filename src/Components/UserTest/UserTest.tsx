@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+/*import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { getUser } from '../../Actions/UserActions';
 import {useHistory, Link} from 'react-router-dom';
@@ -30,3 +30,4 @@ export const GetsUser:React.FC<any> = () => {
     }
     return <h1 onClick={login}>Hello</h1>
 }
+*/
