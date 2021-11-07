@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import { getUser } from '../../Actions/UserActions';
 //import {useHistory, Link} from 'react-router-dom';
 
-export const GetsUser:React.FC<any> = () => {
+/*export const GetsUser:React.FC<any> = () => {
 
     //First we will pull in the application level state with useSelector
     const appState = useSelector<any, any>((state) => state);
@@ -11,7 +11,7 @@ export const GetsUser:React.FC<any> = () => {
     const dispatch = useDispatch();
 
     //We will setup useHistory to naviate using JS
-    //const history = useHistory();
+    const history = useHistory();
 
     //Set up our component level state, that other components don't need to know about
     let [id, setId] = useState(1);
@@ -30,3 +30,4 @@ export const GetsUser:React.FC<any> = () => {
     }
     return <h1 onClick={login}>Hello</h1>
 }
+*/
