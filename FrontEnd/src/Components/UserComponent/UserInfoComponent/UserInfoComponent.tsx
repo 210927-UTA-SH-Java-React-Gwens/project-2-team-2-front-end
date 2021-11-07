@@ -34,7 +34,7 @@ export const UserInfoComponent:React.FC<any> = () => {
             <Form.Text className="text-muted">
             </Form.Text>
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="button">
             Update
             </Button>
             </Col>

@@ -2,8 +2,6 @@ import React, {useState} from 'react';
 import {Container, Form, Row, Col} from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
 import '../UserComponent.css';
-import { Modal } from 'react-bootstrap';
-import CurrencyInput from 'react-currency-input-field';
 
 export const PasswordChangeComponent:React.FC<any> = () => {
 
