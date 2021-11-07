@@ -9,7 +9,7 @@ pipeline {
         }
         stage("Deploy") {
             steps {
-                ls
+                sh "ls"
             }
         }
     }
