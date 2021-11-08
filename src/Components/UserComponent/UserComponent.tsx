@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { PageTitleComponent } from '../PageTitleComponent/PageTitleComponent';
 import { PasswordChangeComponent } from './PasswordChangeComponent/PasswordChangeComponent';
 import { UserInfoComponent } from './UserInfoComponent/UserInfoComponent';

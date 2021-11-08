@@ -36,8 +36,10 @@ export const NewListing: React.FC<any> = () => {
   let formSubmit = (event: any) => {
     event.preventDefault();
 
-    //setFsetDisabled(true);
+    setFsetDisabled(true);
     console.log(formData);
+
+    setFsetDisabled(false);
   };
 
   return (

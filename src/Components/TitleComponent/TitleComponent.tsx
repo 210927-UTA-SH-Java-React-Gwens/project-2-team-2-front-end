@@ -5,7 +5,7 @@ export const Title : React.FC<any> = () => {
 
   return (
     <div>
-      <a href="#" id="title">GWENslist</a>
+      <a href="/" id="title">GWENslist</a>
     </div>
   )
 }

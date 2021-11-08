@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, ButtonGroup,Button,Col } from 'react-bootstrap';
 import './PageTitleComponent.css';
-import { FaArrowLeft, FaRocket } from 'react-icons/fa';
+import { FaArrowLeft } from 'react-icons/fa';
 
 
 export const PageTitleComponent : React.FC<any> = (props) => {

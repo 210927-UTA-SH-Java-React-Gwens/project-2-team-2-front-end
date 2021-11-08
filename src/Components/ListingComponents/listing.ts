@@ -6,7 +6,7 @@ export const formatAsMoney = (value: string) => {
 
   // Get number of numeric chars - used for placing commas
   for (let i of value)
-    if (i == ".") break;
+    if (i === ".") break;
     else if (!isNaN(Number(i))) sz++;
 
   if (sz === 0)
