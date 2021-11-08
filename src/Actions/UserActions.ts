@@ -1,14 +1,17 @@
-import {GET_USER} from './ActionTypes';
+import {GET_USER,LOGIN_USER,CREATE_USER} from './ActionTypes';
 import axios from 'axios';
 
-interface GetUser {
+const hostURL = 'http://localhost:8080/';
+
+interface GetUserI {
     id:number,
 }
 
-export const getUser = (user:GetUser) => async (dispatch: any) => {
+//Add as many actions as needed to retrive the correct data from API
+export const getUser = (user:GetUserI) => async (dispatch: any) => {
 
     try{
-    const res = await axios.get('http://localhost:8080/user/u?id=1');
+    const res = await axios.get(hostURL + 'user/u?id=1');
     
 
     let user = {
@@ -44,6 +47,102 @@ export const getUser = (user:GetUser) => async (dispatch: any) => {
 
     }
 
+}
+
+interface ILogin {
+    username: string,
+    password: string
+}
+
+export const loginUser = (user:ILogin) => async (dispatch:any) => {
+
+    try{
+    
+        const res = await axios.post(hostURL + 'user/login',user);
+        let retrievedUser = {
+
+            id: res.data.id,
+            username:res.data.username,
+            email:res.data.email,
+            funds : res.data.funds,
+            password : res.data.password
+    
+        }
+        if(!retrievedUser.id)
+            throw 'Incorrect credentials';
+
+        return dispatch({
+            type: LOGIN_USER,
+            payload : retrievedUser
+        });
+
+    }catch(e){
+
+        let failuser = {
+
+            id: -1,
+            username:'',
+            email:'',
+            funds : 0,
+            password : ''
+    
+        }
+        console.log('in the error zone');
+        return dispatch({
+            type: LOGIN_USER,
+            payload : failuser
+        });
+
+    }
+}
+
+interface ICreateUser {
+    username: string,
+    email: string,
+    funds : number
+    password: string
+}
+
+export const createUser = (user:ICreateUser) => async (dispatch:any) => {
+
+    try{
+        
+        const res = await axios.post(hostURL + 'user/create-user', user);
+        let createdUser = {
+
+            id: res.data.id,
+            username:res.data.username,
+            email:res.data.email,
+            funds : res.data.funds,
+            password : res.data.password
+    
+        }
+        if(!createdUser.id)
+            throw 'Incorrect credentials';
+
+        return dispatch({
+            type: CREATE_USER,
+            payload : createdUser
+        });
+
+    }catch(e){
+
+        let failuser = {
+
+            id: -1,
+            username:'',
+            email:'',
+            funds : 0,
+            password : ''
+    
+        }
+
+        return dispatch({
+            type: CREATE_USER,
+            payload : failuser
+        });
+
+    }
 }
 
 

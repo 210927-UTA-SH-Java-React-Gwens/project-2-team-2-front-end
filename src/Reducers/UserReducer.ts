@@ -1,5 +1,5 @@
 import {IUser} from '../Store/types';
-import {GET_USER} from '../Actions/ActionTypes';
+import {GET_USER,LOGIN_USER,CREATE_USER} from '../Actions/ActionTypes';
 
 let initialState:IUser = {
     id: 0,
@@ -19,12 +19,23 @@ type Action = {
 export const userReducer = (state:IUser = initialState, action:Action) =>{
 
     switch(action.type){
-        case GET_USER:
+        case LOGIN_USER:
             initialState = action.payload;
             console.log(action.payload);
             return {
                 ...initialState
             }
+        case CREATE_USER:
+            initialState = action.payload;
+            console.log(action.payload);
+            return {
+                ...initialState
+            }
+        case GET_USER:
+            initialState = action.payload;
+            return {
+                ...initialState
+            }    
         default:
             return state;
     }
