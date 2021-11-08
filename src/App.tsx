@@ -6,7 +6,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-
+      <h1>The pipeline works!</h1>
     </div>
   );
 }
