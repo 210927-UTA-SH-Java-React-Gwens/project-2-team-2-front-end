@@ -31,7 +31,7 @@ export const LoggedUserOptionComponent : React.FC<any> = () => {
         </Dropdown.Toggle>
         <Dropdown.Menu >
             <Dropdown.Item href="#/action-1"><FaUserTie/> Account</Dropdown.Item>
-            <Dropdown.Item href="#/action-2"><FaPiggyBank/> My Listings</Dropdown.Item>
+            <Dropdown.Item href="#/action-2"><FaPiggyBank/> My Listing</Dropdown.Item>
             <Dropdown.Item onClick={logOut} ><FaSignOutAlt/> Log out </Dropdown.Item>
         </Dropdown.Menu>
     </Dropdown>
