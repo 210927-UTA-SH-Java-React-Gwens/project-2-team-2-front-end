@@ -1,4 +1,4 @@
-import {GET_USER,LOGIN_USER,CREATE_USER} from './ActionTypes';
+import {GET_USER,LOGIN_USER,CREATE_USER, LOGOUT_USER} from './ActionTypes';
 import axios from 'axios';
 
 const hostURL = 'http://localhost:8080/';
@@ -143,6 +143,24 @@ export const createUser = (user:ICreateUser) => async (dispatch:any) => {
         });
 
     }
+}
+
+
+
+export const logOutUser = () => (dispatch:any) => {
+    let noUser = {
+
+        id: 0,
+        username:'',
+        email:'',
+        funds : 0,
+        password : ''
+
+    }
+    return dispatch({
+        type: LOGOUT_USER,
+        payload : noUser
+    });
 }
 
 
