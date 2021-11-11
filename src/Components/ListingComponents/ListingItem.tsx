@@ -1,6 +1,5 @@
 import React from 'react';
 import {Container,Row,Col,Card,Form,Button} from 'react-bootstrap';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { formatAsMoney } from "./listing";
 
 
