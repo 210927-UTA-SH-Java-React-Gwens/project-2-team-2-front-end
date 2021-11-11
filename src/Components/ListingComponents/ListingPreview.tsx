@@ -14,7 +14,7 @@ id: number,
     category:string
 */
 
-export const ListingItem : React.FC<any> = (props) => {
+export const ListingPreview : React.FC<any> = (props) => {
     return(
         <Container>
             <div className="listing-itemized" key={props.id}>

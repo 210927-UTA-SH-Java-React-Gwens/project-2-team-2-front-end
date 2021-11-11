@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Container,Row,Col,Card,Form,Button} from 'react-bootstrap';
 import {Header} from '../HeaderComponent/HeaderComponent';
 import {searchListings} from "../../Actions/ListingActions";
-import {ListingItem} from '../ListingComponents/ListingItem';
+import {ListingPreview} from '../ListingComponents/ListingPreview';
 
 export const Search: React.FC<any> = () => {
 
@@ -44,7 +44,7 @@ export const Search: React.FC<any> = () => {
                     <h3>Filtered Results:</h3>
                     {appState.listings.map((listing:any) => {
                         return(
-                            <ListingItem {...listing} key={listing.id} />
+                            <ListingPreview {...listing} key={listing.id} />
                         );
                     })}
                 </div>
