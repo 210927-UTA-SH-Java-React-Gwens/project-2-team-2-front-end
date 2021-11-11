@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import { useDispatch , useSelector} from 'react-redux';
-import {Container, Row,Col,Card,Form, Button} from 'react-bootstrap';
-import './SignUpComponent.css'
-import { PageTitleComponent } from '../PageTitleComponent/PageTitleComponent';
+import {Container, Row,Col,Form, Button} from 'react-bootstrap';
 import { createUser } from '../../Actions/UserActions';
 
 export const SignUpComponent:React.FC<any> = () => {
@@ -33,16 +31,12 @@ export const SignUpComponent:React.FC<any> = () => {
 
     return (
     <div>
-        <PageTitleComponent name="Gwen's List" />
             <Container>
                 <Row></Row>
                 <Row >
-                    <Col xs={3}></Col>
-                    <Col id="centered-login" xs={6} >
-                    <Card id="sign-up-card">
-                        <Card.Body>
-                            <Card.Title>Sign Up</Card.Title>
-                            <Card.Subtitle className="mb-2 text-muted">Please fill out the requested information</Card.Subtitle><br/>
+                    <Col xs={1}></Col>
+                    <Col xs={10} >
+                                <br/>
                                 <Form.Group className="mb-3" >
                                 <Form.Label>Username</Form.Label>
                                 <Form.Control name="username" type="text" placeholder="Username" onChange={handleChange} />
@@ -59,15 +53,20 @@ export const SignUpComponent:React.FC<any> = () => {
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control name="password" type="password" placeholder="Password" onChange={handleChange}/>
                                 <Form.Text className="text-muted"><br/>
-                                <Button onClick={register} variant="primary" type="button">
-                                Sign up
-                                </Button>
                                 </Form.Text>
                                 </Form.Group>
-                        </Card.Body>
-                        </Card>
                     </Col>
-                    <Col xs={3} ></Col>
+                    <Col xs={1} ></Col>
+                    <Row> 
+                        <Col xs={5} ></Col>
+                        <Col>
+                            <Button  onClick={register} variant="primary" type="button">
+                                        Sign up
+                            </Button>   
+                        </Col> 
+                        <Col xs={4} ></Col>
+                    </Row>
+                    
                 </Row>
                 
             </Container>

@@ -6,6 +6,8 @@ import { UserComponent } from "./Components/UserComponent/UserComponent";
 import { ListingView } from "./Components/ListingComponents/ListingViewComponent";
 import { Header } from "./Components/HeaderComponent/HeaderComponent";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Home } from "./Components/HomeComponent/Home";
+import { Search } from "./Components/HomeComponent/Search";
 
 function App() {
   useEffect(() => {
@@ -14,8 +16,8 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
       <Router>
+      <Header />
         <Switch>
           <Route exact path="/create-listing">
             <NewListing />
@@ -37,6 +39,12 @@ function App() {
             <div>
               <p>Hello</p>
             </div>
+          </Route>
+          <Route exact path="/home">
+            <Home/>
+          </Route>
+          <Route exact path="/search">
+            <Search/>
           </Route>
         </Switch>
       </Router>

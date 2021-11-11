@@ -1,21 +1,65 @@
-import React, {useState} from 'react';
-import {Container, Form, Row, Col} from 'react-bootstrap';
+import React, {useEffect, useState} from 'react';
+import {Container, Form, Row, Col, Alert} from 'react-bootstrap';
+import { useDispatch , useSelector} from 'react-redux';
 import {Button} from 'react-bootstrap';
 import '../UserComponent.css';
 import { Modal } from 'react-bootstrap';
 import CurrencyInput from 'react-currency-input-field';
+import { updateUserEmail, updateUserUsername } from '../../../Actions/UserActions';
 
 export const UserInfoComponent:React.FC<any> = () => {
+    const appState = useSelector<any, any>((state) => state);
+    let dispatch = useDispatch();
+    let firstEffect = 0;
 
     const [show, setShow] = useState(false);
+    const [show2, setShow2] = useState(false);
+    const [username, setUsername] = useState(appState.user.username);
+    const [email,setEmail] = useState(appState.user.email);
+    const [funds,setFunds] = useState(appState.user.funds);
+
 
     const handleClose = (e:any) => {setShow(false);  };
     const handleShow = () => {setShow(true)};
 
+    useEffect(() =>{
+        if(appState.user.username == username)
+                console.log('Success');
+            else
+                console.log('Failed');
+
+        firstEffect = 1;
+    }
+    , [appState]);
+
+    const handleChange = (e:any) => {
+        if(e.target.name === "username")
+            setUsername(e.target.value);
+        else if (e.target.name === 'email')
+            setEmail(e.target.value);
+    } 
+
+    const update = async () => {
+        if(username!=appState.user.username){
+            await dispatch(
+                updateUserUsername({ id:appState.user.id, username }));
+
+        }
+        if(email!=appState.user.email)
+        await dispatch(
+            updateUserEmail({ id:appState.user.id, email }));   
+        
+        
+    }
+
 
     return (
     <div>
-        <Container><Row>
+        <Container>
+            <Row><Alert show={show2} variant='success'>
+                default
+            </Alert></Row>
+            <Row>
         <Col xs={1}></Col>
         <Form id="outer-border">
         <Container >
@@ -23,18 +67,18 @@ export const UserInfoComponent:React.FC<any> = () => {
             <Col>
             <Form.Group className="mb-3" >
             <Form.Label>Username</Form.Label>
-            <Form.Control type="text" placeholder="Username" />
+            <Form.Control name='username' onChange={handleChange} type="text" placeholder="Username" defaultValue={appState.user.username} />
             <Form.Text className="text-muted">
             </Form.Text>
             </Form.Group>
 
             <Form.Group className="mb-3" >
             <Form.Label>Email</Form.Label>
-            <Form.Control type="email" placeholder="Email" />
+            <Form.Control name='email' onChange={handleChange} type="email" placeholder="Email" defaultValue={appState.user.email} />
             <Form.Text className="text-muted">
             </Form.Text>
             </Form.Group>
-            <Button variant="primary" type="button">
+            <Button onClick={update} variant="primary" type="button">
             Update
             </Button>
             </Col>
@@ -42,7 +86,7 @@ export const UserInfoComponent:React.FC<any> = () => {
             <Col>
             <Form.Group className="mb-3" >
             <Form.Label>Funds</Form.Label>
-            <Form.Control type="number" placeholder="0" disabled/>
+            <Form.Control type="number" placeholder="0" value={funds/100} disabled/>
             <Form.Text className="text-muted">
             </Form.Text>
             </Form.Group>
@@ -83,6 +127,8 @@ export const UserInfoComponent:React.FC<any> = () => {
         </Button>
         </Modal.Footer>
     </Modal>
+
+    
     </div>
     )
 }
