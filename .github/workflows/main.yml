@@ -35,13 +35,11 @@ jobs:
       - name: Yarn Install
         run: |
           yarn install
-      - name: Yarn test:ci
-        run: yarn run test:ci
-        env:
-         CI: "" 
       - name: Production Build
         run: |
           yarn build
+        env:
+         CI: false
       # - name: Unit Tests
       #  run: |
       #    yarn test
