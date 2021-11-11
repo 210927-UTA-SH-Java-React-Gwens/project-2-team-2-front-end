@@ -5,13 +5,16 @@ import { LoggedUserOptionComponent } from "../HeaderOptionComponents/LoggedUserO
 import { UserlessOptionComponent } from "../HeaderOptionComponents/UserlessOptionComponent";
 import './Header.css'
 import { Col, Container, Row } from "react-bootstrap";
+import { useHistory } from "react-router";
+
 
 export const Header : React.FC<any> = () => {
   const appState = useSelector<any, any>((state) => state);
+  const history = useHistory();
 
   function Options() {
     if(appState.user.id > 0)
-      return <LoggedUserOptionComponent/>
+      return <LoggedUserOptionComponent history={history}/>
     else
       return <UserlessOptionComponent/>
   }

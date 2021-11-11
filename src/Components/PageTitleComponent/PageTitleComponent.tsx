@@ -4,7 +4,12 @@ import './PageTitleComponent.css';
 import { FaArrowLeft } from 'react-icons/fa';
 
 
+
 export const PageTitleComponent : React.FC<any> = (props) => {
+
+    const sendUserPage = () => {
+        props.history.push('/');
+}
 
     return (
         <div>
@@ -14,7 +19,7 @@ export const PageTitleComponent : React.FC<any> = (props) => {
                    <Row>
                        <Col xs={2}>
                        <ButtonGroup  id="back-button" size="lg" className="mb-2">
-                            <Button><FaArrowLeft/></Button>
+                            <Button onClick={sendUserPage} ><FaArrowLeft/></Button>
                         </ButtonGroup>
                        </Col>
                        <Col>
