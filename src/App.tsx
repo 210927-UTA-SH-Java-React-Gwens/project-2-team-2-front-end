@@ -10,8 +10,8 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <div className="App">
-      <Header />
       <Router>
+      <Header />
         <Switch>
           <Route exact path="/new-listing">
             <NewListing />
