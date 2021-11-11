@@ -15,8 +15,8 @@ id: number,
 
 type Action = {
 
-    type:string,
-    payload:object
+    type: string, 
+    payload:IListing
 
 };
 
@@ -24,15 +24,11 @@ export const listingReducer = (state:IListing[] = initialState, action:Action) =
 
     switch(action.type){
         case HOME_LISTINGS:
-            initialState = action.payload;
-            return {
-                ...initialState
-            }
+            return action.payload;
+            
         case SEARCH_LISTINGS:
-            initialState = action.payload;
-            return {
-                ...initialState
-            }
+            return action.payload;
+
         default:
             return state;
     }
