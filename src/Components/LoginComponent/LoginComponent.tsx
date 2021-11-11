@@ -28,7 +28,6 @@ export const LoginComponent:React.FC<any> = () => {
         else
             setPassword(e.target.value);
 
-        console.log('user:'+username + ' p:' +password);
     }
 
     const login = async () => {
