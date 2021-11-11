@@ -35,8 +35,8 @@ jobs:
       - name: Yarn Install
         run: |
           yarn install
-      - name: npm test:ci
-        run: npm run test:ci
+      - name: Yarn test:ci
+        run: yarn run test:ci
         env:
          CI: "" 
       - name: Production Build
