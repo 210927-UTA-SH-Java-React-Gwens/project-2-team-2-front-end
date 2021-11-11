@@ -7,5 +7,5 @@ import { messageReducer } from "./MessageReducer";
 export default combineReducers({
     user:userReducer,
     listing:listingReducer,
-    mesagge:messageReducer
+    message:messageReducer
 });
