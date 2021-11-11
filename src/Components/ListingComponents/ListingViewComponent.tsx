@@ -1,5 +1,5 @@
 import React from "react";
-import { formatAsMoney } from "../listing";
+import { formatAsMoney } from "./listing";
 
 export const ListingView : React.FC<any> = (props) => {
   

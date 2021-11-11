@@ -1,18 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
-import { NewListing } from "./Components/ListingComponents/NewListingComponent/NewListingComponent";
+import { NewListing } from "./Components/ListingComponents/NewListingComponent";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import { UserComponent } from "./Components/UserComponent/UserComponent";
-import { ListingView } from "./Components/ListingComponents/ListingViewComponent/ListingViewComponent";
+import { ListingView } from "./Components/ListingComponents/ListingViewComponent";
 import { Header } from "./Components/HeaderComponent/HeaderComponent";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
+  useEffect(() => {
+    document.title = "GWENslist";
+  });
+
   return (
     <div className="App">
       <Header />
       <Router>
         <Switch>
-          <Route exact path="/new-listing">
+          <Route exact path="/create-listing">
             <NewListing />
           </Route>
           <Route exact path="/listing">
@@ -40,6 +45,3 @@ function App() {
 }
 
 export default App;
-
-// took this out of app div
-// <GetsUser/>
