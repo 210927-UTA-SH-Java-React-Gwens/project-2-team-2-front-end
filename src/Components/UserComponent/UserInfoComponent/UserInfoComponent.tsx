@@ -14,9 +14,9 @@ export const UserInfoComponent:React.FC<any> = () => {
 
     const [show, setShow] = useState(false);
     const [show2, setShow2] = useState(false);
-    const [username, setUsername] = useState(appState.user.username);
-    const [email,setEmail] = useState(appState.user.email);
-    const [funds,setFunds] = useState(appState.user.funds);
+    let [username, setUsername] = useState(appState.user.username);
+    let [email,setEmail] = useState(appState.user.email);
+    let [funds,setFunds] = useState(appState.user.funds);
 
 
     const handleClose = (e:any) => {setShow(false);  };

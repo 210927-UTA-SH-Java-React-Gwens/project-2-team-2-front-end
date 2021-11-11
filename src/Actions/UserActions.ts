@@ -1,4 +1,4 @@
-import {GET_USER,LOGIN_USER,CREATE_USER, LOGOUT_USER,UPDATE_USER_USERNAME, UPDATE_USER_EMAIL} from './ActionTypes';
+import {GET_USER,LOGIN_USER,CREATE_USER, LOGOUT_USER,UPDATE_USER_USERNAME, UPDATE_USER_EMAIL, UPDATE_USER_PASSWORD} from './ActionTypes';
 import axios from 'axios';
 
 const hostURL = 'http://localhost:8080/';
@@ -258,4 +258,50 @@ export const updateUserEmail = (user:IUpdateUserEmail) => async (dispatch:any) =
     }
 }
 
+interface IUpdateUserPassword {
+    id: number,
+    password: string
+}
+
+export const updateUserPassword = (user:IUpdateUserPassword) => async (dispatch:any) => {
+
+    try{
+        
+        const res = await axios.post(hostURL + 'user/update-password', user);
+        let updatedUser = {
+
+            id: res.data.id,
+            username:res.data.username,
+            email:res.data.email,
+            funds : res.data.funds,
+            password : res.data.password
+    
+        }
+        if(!updatedUser.id)
+            throw 'Something went wrong';
+
+        return dispatch({
+            type: UPDATE_USER_PASSWORD,
+            payload : updatedUser
+        });
+
+    }catch(e){
+
+        let failuser = {
+
+            id: -1,
+            username:'',
+            email:'',
+            funds : 0,
+            password : ''
+    
+        }
+
+        return dispatch({
+            type: UPDATE_USER_PASSWORD,
+            payload : failuser
+        });
+
+    }
+}
 
