@@ -25,7 +25,7 @@ export const getListing = (user:GetListing) => async (dispatch: any) => {
             payload: res.data
         });
     } catch(e){
-        console.log("uh oh");
+        console.log("fetch issue");
         return dispatch({
             type: GET_LISTING,
             payload: []
@@ -48,7 +48,7 @@ export const homeListings = () => async (dispatch: any) => {
             payload: res.data
         });
     } catch(e){
-        console.log("uh oh");
+        console.log("fetch issue");
         return dispatch({
             type: HOME_LISTINGS,
             payload: []
@@ -73,7 +73,7 @@ export const searchListings = () => async (dispatch: any) => {
             payload: res.data
         });
     } catch(e){
-        console.log("uh oh");
+        console.log("fetch issue");
         return dispatch({
             type: SEARCH_LISTINGS,
             payload: []

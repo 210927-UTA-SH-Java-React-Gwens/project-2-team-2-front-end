@@ -15,7 +15,7 @@ export interface IListing {
     title:string,
     content : string,
     author_id: number,
-    purchaser_id?: number,
+    purchaser_id: number,
     category:string
 }
 
@@ -30,7 +30,7 @@ export interface IMessages {
 
 export type AppState = {
     user: IUser,
-    listing:IListing[],
+    listing: IListing[],
     messages: IMessages[]
 
 }

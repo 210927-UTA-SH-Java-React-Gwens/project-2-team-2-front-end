@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Container,Row,Col,Card,Form,Button} from 'react-bootstrap';
 import {homeListings} from '../../Actions/ListingActions';
 import {Header} from '../HeaderComponent/HeaderComponent';
-import {ListingItem} from '../ListingComponents/ListingItem';
+import {ListingPreview} from '../ListingComponents/ListingPreview';
 
 export const Home: React.FC<any> = () => {
 
@@ -44,7 +44,7 @@ export const Home: React.FC<any> = () => {
                     <h3>Latest Listings:</h3>
                     {appState.listings.map((listing:any) => {
                         return(
-                            <ListingItem {...listing} key={listing.id} />
+                            <ListingPreview {...listing} key={listing.id} />
                         );
                     })}
                 </div>
