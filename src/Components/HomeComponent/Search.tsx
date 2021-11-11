@@ -6,7 +6,7 @@ import {Header} from '../HeaderComponent/HeaderComponent';
 import {searchListings} from "../../Actions/ListingActions";
 import {ListingView} from '../ListingComponents/ListingViewComponent/ListingViewComponent';
 
-export const Home: React.FC<any> = () => {
+export const Search: React.FC<any> = () => {
 
     const appState = useSelector<any, any>((state) => state);
     const dispatch = useDispatch();

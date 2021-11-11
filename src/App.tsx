@@ -34,6 +34,12 @@ function App() {
               <p>Hello</p>
             </div>
           </Route>
+          <Route exact path="/home">
+            <Home/>
+          </Route>
+          <Route exact path="/search">
+            <Search/>
+          </Route>
         </Switch>
       </Router>
     </div>

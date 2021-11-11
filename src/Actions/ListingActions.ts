@@ -18,7 +18,7 @@ interface GetListing {
 export const getListing = (user:GetListing) => async (dispatch: any) => {
     
     try{
-        let res = await axios.get('http://localhost:8080/' + );
+        let res = await axios.get('http://localhost:8080/');
         console.log(res.data);
         return dispatch({
             type: GET_LISTING,
