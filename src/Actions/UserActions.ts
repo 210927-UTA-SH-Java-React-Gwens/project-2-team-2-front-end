@@ -1,4 +1,4 @@
-import {GET_USER,LOGIN_USER,CREATE_USER, LOGOUT_USER,UPDATE_USER_USERNAME, UPDATE_USER_EMAIL, UPDATE_USER_PASSWORD} from './ActionTypes';
+import {GET_USER,LOGIN_USER,CREATE_USER, LOGOUT_USER,UPDATE_USER_USERNAME, UPDATE_USER_EMAIL, UPDATE_USER_PASSWORD, ADD_FUNDS_TO_USER} from './ActionTypes';
 import axios from 'axios';
 
 const hostURL = 'http://localhost:8080/';
@@ -304,4 +304,52 @@ export const updateUserPassword = (user:IUpdateUserPassword) => async (dispatch:
 
     }
 }
+
+interface IAddFunds {
+    id: number,
+    funds: number
+}
+
+export const addFundsToUser = (user:IAddFunds) => async (dispatch:any) => {
+
+    try{
+        console.log(user);
+        const res = await axios.post(hostURL + 'user/add-funds', user);
+        let updatedUser = {
+
+            id: res.data.id,
+            username:res.data.username,
+            email:res.data.email,
+            funds : res.data.funds,
+            password : res.data.password
+    
+        }
+        if(!updatedUser.id)
+            throw 'Something went wrong';
+
+        return dispatch({
+            type: ADD_FUNDS_TO_USER,
+            payload : updatedUser
+        });
+
+    }catch(e){
+
+        let failuser = {
+
+            id: -1,
+            username:'',
+            email:'',
+            funds : 0,
+            password : ''
+    
+        }
+
+        return dispatch({
+            type: ADD_FUNDS_TO_USER,
+            payload : failuser
+        });
+
+    }
+}
+
 
