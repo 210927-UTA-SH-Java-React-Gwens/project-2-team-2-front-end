@@ -32,7 +32,7 @@ export const Search: React.FC<any> = () => {
             <Form>
                 <Row className="align-items-left">
                     <Col md={4}>
-                        <Form.Control className="mb-3" id="search-bar" type="search" name="search" placeholder="Search by keyword..." onChange={handleSearch}/>
+                        <Form.Control className="mb-3" id="search-bar" type="search" name="search" placeholder="Search by keyword..."/>
                     </Col>
                     <Col xs="auto">
                         <Button type="submit">Search</Button>
@@ -51,5 +51,5 @@ export const Search: React.FC<any> = () => {
             </Container>
         </div>
       );
-      
+
 }
