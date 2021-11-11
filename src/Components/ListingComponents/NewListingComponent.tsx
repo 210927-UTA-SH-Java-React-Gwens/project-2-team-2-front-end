@@ -97,7 +97,7 @@ export const NewListing: React.FC<any> = (props?:any) => {
     // Reset form data images
     formData.delete("images");
     for (let img of images)
-      formData.append('images', img);
+      formData.append('images', img.data);
     setFormData(formData);
   }
 
