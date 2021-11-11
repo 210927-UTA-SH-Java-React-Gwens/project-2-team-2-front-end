@@ -1,80 +1,29 @@
-#new-listing {
+Form {
+  margin: 1em;
   padding: 1em;
-  border: 2px solid #bebebe;
-  border-radius:15px;
-  margin: 0;
-  top: 4em;
-  bottom: 1em;
-  left: 1em;
-  right: 1em;
-  position: absolute;
-  padding: 1em;
+  border: 1px solid #bebebe;
+  border-radius: 15px;
 }
 
-#nl-form {
-  height: inherit;
+.btn {
+  margin: 0 .5em;
 }
 
-#nl-fset {
-  height: inherit;
-  border: none;
+#description {
+  height: 15em;
+  margin-bottom: 5em;
 }
 
-#nl-fields {
-  height: inherit;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-#nl-simple {
-  display: flex;
-  flex-direction: column;
-}
-
-#nl-simple-grid {
-  display: grid;
-  grid-template-columns: max-content max-content;
-  grid-gap: 5px;
-  gap: 10px;
-  align-items: center;
-}
-
-#nl-simple label {
-  text-align: right;
-}
-
-input, select {
-  padding: .5em;
-  border: 1px solid #dedede;
-  border-radius: 8px;
-  padding-left: 1em;
-}
-
-#nl-desc-div {
-  width:60%;
-}
-
-input:focus, #description:focus, select {
-  outline: none;
-  border: 1px solid #cacaca;
-}
-
-#nl-desc-div:focus {
-  background-color: black;
-}
-
-#nl-submit:active {
-  background-color: #cacaca;
-}
-
-label {
+.form-group {
+  text-align: left;
   margin-bottom: 1em;
 }
 
-#nl-submit {
-  width: fit-content;
-  padding-left: 1em;
-  padding-right: 1em;
-  margin: auto;
+.form-label {
+  margin-left: .5em;
+}
+
+.image {
+  width: 80%;
+  height: auto;
 }

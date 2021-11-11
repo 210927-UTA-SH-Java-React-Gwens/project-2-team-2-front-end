@@ -13,15 +13,20 @@ import "react-quill/dist/quill.snow.css";
 import { formatAsMoney } from "./listing";
 import { ImageViewer, Img } from "../ImageViewerComponent/ImageViewerComponent";
 //import "./NewListing.css";
-import "./NewListing2.css";
+import "./NewListing.css";
 import axios from "axios";
 
 
 
-export const NewListing: React.FC<any> = () => {
+export const NewListing: React.FC<any> = (props?:any) => {
   useEffect(() => {
     document.title = "Create a new listing | GWENslist";
-  });
+
+    if (props?.defaults) {
+      if (props.defaults.images)
+        setImages(props.defaults.images);
+    }
+  }, []);
 
   // State for turning on/off the form fieldset disabled property
   const [fSetDisabled, setFsetDisabled] = useState(false);
@@ -74,15 +79,26 @@ export const NewListing: React.FC<any> = () => {
 
   let addImages = (imgs:Img[]) => {
     setImages([...images, ...imgs]);
+    for (let img of imgs)
+      formData.append("images", img.data);
+    setFormData(formData);
   }
 
   let removeImage = (key : string) => {
     let imgs:Img[] = [];
+
+    // Reset images to list of images excluding the one with the given key
     for (let image of images)
       if (image.key === key)
         continue;
       else imgs.push(image);
     setImages(imgs);
+
+    // Reset form data images
+    formData.delete("images");
+    for (let img of images)
+      formData.append('images', img);
+    setFormData(formData);
   }
 
 
