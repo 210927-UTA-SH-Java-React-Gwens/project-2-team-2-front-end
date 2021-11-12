@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { SERVER_ADDRESS } from '../server';
 import {GET_LISTING, HOME_LISTINGS, SEARCH_LISTINGS} from './ActionTypes';
 
 /*
@@ -18,7 +19,7 @@ interface GetListing {
 export const getListing = (user:GetListing) => async (dispatch: any) => {
     
     try{
-        let res = await axios.get('http://localhost:8080/');
+        let res = await axios.get(SERVER_ADDRESS);
         console.log(res.data);
         return dispatch({
             type: GET_LISTING,
@@ -41,7 +42,7 @@ interface HomeListings {
 export const homeListings = () => async (dispatch: any) => {
 
     try{
-        let res = await axios.get('http://localhost:8080/');
+        let res = await axios.get(SERVER_ADDRESS);
         console.log(res.data);
         return dispatch({
             type: HOME_LISTINGS,
@@ -66,7 +67,7 @@ interface SearchListings {
 export const searchListings = () => async (dispatch: any) => {
 
     try{
-        let res = await axios.get('http://localhost:8080/');
+        let res = await axios.get(SERVER_ADDRESS);
         console.log(res.data);
         return dispatch({
             type: SEARCH_LISTINGS,

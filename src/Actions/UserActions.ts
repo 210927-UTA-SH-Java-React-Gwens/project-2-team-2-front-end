@@ -1,7 +1,6 @@
 import {GET_USER,LOGIN_USER,CREATE_USER, LOGOUT_USER,UPDATE_USER_USERNAME, UPDATE_USER_EMAIL, UPDATE_USER_PASSWORD, ADD_FUNDS_TO_USER} from './ActionTypes';
 import axios from 'axios';
-
-const hostURL = 'http://localhost:8080/';
+import { SERVER_ADDRESS } from '../server';
 
 interface GetUserI {
     id:number,
@@ -11,7 +10,7 @@ interface GetUserI {
 export const getUser = (user:GetUserI) => async (dispatch: any) => {
 
     try{
-    const res = await axios.get(hostURL + 'user/u?id=1');
+    const res = await axios.get(SERVER_ADDRESS + 'user/u?id=1');
     
 
     let user = {
@@ -58,7 +57,7 @@ export const loginUser = (user:ILogin) => async (dispatch:any) => {
 
     try{
     
-        const res = await axios.post(hostURL + 'user/login',user);
+        const res = await axios.post(SERVER_ADDRESS + 'user/login',user);
         let retrievedUser = {
 
             id: res.data.id,
@@ -107,7 +106,7 @@ export const createUser = (user:ICreateUser) => async (dispatch:any) => {
 
     try{
         
-        const res = await axios.post(hostURL + 'user/create-user', user);
+        const res = await axios.post(SERVER_ADDRESS + 'user/create-user', user);
         let createdUser = {
 
             id: res.data.id,
@@ -172,7 +171,7 @@ export const updateUserUsername = (user:IUpdateUserUsername) => async (dispatch:
 
     try{
         
-        const res = await axios.post(hostURL + 'user/update-username', user);
+        const res = await axios.post(SERVER_ADDRESS + 'user/update-username', user);
         let updatedUser = {
 
             id: res.data.id,
@@ -220,7 +219,7 @@ export const updateUserEmail = (user:IUpdateUserEmail) => async (dispatch:any) =
 
     try{
         
-        const res = await axios.post(hostURL + 'user/update-email', user);
+        const res = await axios.post(SERVER_ADDRESS + 'user/update-email', user);
         let updatedUser = {
 
             id: res.data.id,
@@ -267,7 +266,7 @@ export const updateUserPassword = (user:IUpdateUserPassword) => async (dispatch:
 
     try{
         
-        const res = await axios.post(hostURL + 'user/update-password', user);
+        const res = await axios.post(SERVER_ADDRESS + 'user/update-password', user);
         let updatedUser = {
 
             id: res.data.id,
@@ -314,7 +313,7 @@ export const addFundsToUser = (user:IAddFunds) => async (dispatch:any) => {
 
     try{
         console.log(user);
-        const res = await axios.post(hostURL + 'user/add-funds', user);
+        const res = await axios.post(SERVER_ADDRESS + 'user/add-funds', user);
         let updatedUser = {
 
             id: res.data.id,
