@@ -1,7 +1,6 @@
-import {GET_USER,LOGIN_USER,CREATE_USER, LOGOUT_USER,UPDATE_USER_USERNAME, UPDATE_USER_EMAIL} from './ActionTypes';
+import {GET_USER,LOGIN_USER,CREATE_USER, LOGOUT_USER,UPDATE_USER_USERNAME, UPDATE_USER_EMAIL, UPDATE_USER_PASSWORD, ADD_FUNDS_TO_USER} from './ActionTypes';
 import axios from 'axios';
-
-const hostURL = 'http://localhost:8080/';
+import { SERVER_ADDRESS } from '../server';
 
 interface GetUserI {
     id:number,
@@ -11,7 +10,7 @@ interface GetUserI {
 export const getUser = (user:GetUserI) => async (dispatch: any) => {
 
     try{
-    const res = await axios.get(hostURL + 'user/u?id=1');
+    const res = await axios.get(SERVER_ADDRESS + 'user/u?id=1');
     
 
     let user = {
@@ -58,7 +57,7 @@ export const loginUser = (user:ILogin) => async (dispatch:any) => {
 
     try{
     
-        const res = await axios.post(hostURL + 'user/login',user);
+        const res = await axios.post(SERVER_ADDRESS + 'user/login',user);
         let retrievedUser = {
 
             id: res.data.id,
@@ -107,7 +106,7 @@ export const createUser = (user:ICreateUser) => async (dispatch:any) => {
 
     try{
         
-        const res = await axios.post(hostURL + 'user/create-user', user);
+        const res = await axios.post(SERVER_ADDRESS + 'user/create-user', user);
         let createdUser = {
 
             id: res.data.id,
@@ -172,7 +171,7 @@ export const updateUserUsername = (user:IUpdateUserUsername) => async (dispatch:
 
     try{
         
-        const res = await axios.post(hostURL + 'user/update-username', user);
+        const res = await axios.post(SERVER_ADDRESS + 'user/update-username', user);
         let updatedUser = {
 
             id: res.data.id,
@@ -220,7 +219,7 @@ export const updateUserEmail = (user:IUpdateUserEmail) => async (dispatch:any) =
 
     try{
         
-        const res = await axios.post(hostURL + 'user/update-email', user);
+        const res = await axios.post(SERVER_ADDRESS + 'user/update-email', user);
         let updatedUser = {
 
             id: res.data.id,
@@ -252,6 +251,100 @@ export const updateUserEmail = (user:IUpdateUserEmail) => async (dispatch:any) =
 
         return dispatch({
             type: UPDATE_USER_EMAIL,
+            payload : failuser
+        });
+
+    }
+}
+
+interface IUpdateUserPassword {
+    id: number,
+    password: string
+}
+
+export const updateUserPassword = (user:IUpdateUserPassword) => async (dispatch:any) => {
+
+    try{
+        
+        const res = await axios.post(SERVER_ADDRESS + 'user/update-password', user);
+        let updatedUser = {
+
+            id: res.data.id,
+            username:res.data.username,
+            email:res.data.email,
+            funds : res.data.funds,
+            password : res.data.password
+    
+        }
+        if(!updatedUser.id)
+            throw 'Something went wrong';
+
+        return dispatch({
+            type: UPDATE_USER_PASSWORD,
+            payload : updatedUser
+        });
+
+    }catch(e){
+
+        let failuser = {
+
+            id: -1,
+            username:'',
+            email:'',
+            funds : 0,
+            password : ''
+    
+        }
+
+        return dispatch({
+            type: UPDATE_USER_PASSWORD,
+            payload : failuser
+        });
+
+    }
+}
+
+interface IAddFunds {
+    id: number,
+    funds: number
+}
+
+export const addFundsToUser = (user:IAddFunds) => async (dispatch:any) => {
+
+    try{
+        console.log(user);
+        const res = await axios.post(SERVER_ADDRESS + 'user/add-funds', user);
+        let updatedUser = {
+
+            id: res.data.id,
+            username:res.data.username,
+            email:res.data.email,
+            funds : res.data.funds,
+            password : res.data.password
+    
+        }
+        if(!updatedUser.id)
+            throw 'Something went wrong';
+
+        return dispatch({
+            type: ADD_FUNDS_TO_USER,
+            payload : updatedUser
+        });
+
+    }catch(e){
+
+        let failuser = {
+
+            id: -1,
+            username:'',
+            email:'',
+            funds : 0,
+            password : ''
+    
+        }
+
+        return dispatch({
+            type: ADD_FUNDS_TO_USER,
             payload : failuser
         });
 

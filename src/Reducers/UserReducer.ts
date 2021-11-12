@@ -1,5 +1,5 @@
 import {IUser} from '../Store/types';
-import {GET_USER,LOGIN_USER,CREATE_USER, LOGOUT_USER,UPDATE_USER_USERNAME, UPDATE_USER_EMAIL} from '../Actions/ActionTypes';
+import {GET_USER,LOGIN_USER,CREATE_USER, LOGOUT_USER,UPDATE_USER_USERNAME, UPDATE_USER_EMAIL, UPDATE_USER_PASSWORD, ADD_FUNDS_TO_USER} from '../Actions/ActionTypes';
 
 let initialState:IUser = {
     id: 0,
@@ -50,7 +50,19 @@ export const userReducer = (state:IUser = initialState, action:Action) =>{
                 initialState = action.payload;
                 return {
                     ...initialState
-                } 
+                }
+        case UPDATE_USER_PASSWORD:
+            if(action.payload.id>0)
+                initialState = action.payload;
+                return {
+                    ...initialState
+                }
+        case ADD_FUNDS_TO_USER:
+            if(action.payload.id>0)
+                initialState = action.payload;
+                return {
+                    ...initialState
+                }
         default:
             return state;
     }

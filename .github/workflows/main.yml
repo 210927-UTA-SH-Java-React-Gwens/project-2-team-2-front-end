@@ -38,6 +38,8 @@ jobs:
       - name: Production Build
         run: |
           yarn build
+        env:
+         CI: false
       # - name: Unit Tests
       #  run: |
       #    yarn test

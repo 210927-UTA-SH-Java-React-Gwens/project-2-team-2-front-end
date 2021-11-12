@@ -5,7 +5,7 @@ import {Button} from 'react-bootstrap';
 import '../UserComponent.css';
 import { Modal } from 'react-bootstrap';
 import CurrencyInput from 'react-currency-input-field';
-import { updateUserEmail, updateUserUsername } from '../../../Actions/UserActions';
+import { addFundsToUser, updateUserEmail, updateUserUsername } from '../../../Actions/UserActions';
 
 export const UserInfoComponent:React.FC<any> = () => {
     const appState = useSelector<any, any>((state) => state);
@@ -14,21 +14,23 @@ export const UserInfoComponent:React.FC<any> = () => {
 
     const [show, setShow] = useState(false);
     const [show2, setShow2] = useState(false);
-    const [username, setUsername] = useState(appState.user.username);
-    const [email,setEmail] = useState(appState.user.email);
-    const [funds,setFunds] = useState(appState.user.funds);
+    let [username, setUsername] = useState(appState.user.username);
+    let [email,setEmail] = useState(appState.user.email);
+    let [funds,setFunds] = useState(appState.user.funds);
+    let [addedFunds,setAddedFunds] = useState(20.00);
 
 
     const handleClose = (e:any) => {setShow(false);  };
     const handleShow = () => {setShow(true)};
 
     useEffect(() =>{
-        if(appState.user.username == username)
+        if(appState.user.username === username)
                 console.log('Success');
             else
                 console.log('Failed');
 
         firstEffect = 1;
+        setFunds(appState.user.funds);
     }
     , [appState]);
 
@@ -37,22 +39,42 @@ export const UserInfoComponent:React.FC<any> = () => {
             setUsername(e.target.value);
         else if (e.target.name === 'email')
             setEmail(e.target.value);
+        else if (e.target.name === 'funds-input')
+            setAddedFunds(e.target.value);
+
     } 
 
     const update = async () => {
-        if(username!=appState.user.username){
+        if(username!==appState.user.username){
             await dispatch(
                 updateUserUsername({ id:appState.user.id, username }));
 
         }
-        if(email!=appState.user.email)
+        if(email!==appState.user.email)
         await dispatch(
             updateUserEmail({ id:appState.user.id, email }));   
         
         
     }
 
+    const addFunds = async () => {
+        let formattedFunds: string = addedFunds+'';
+        formattedFunds = formattedFunds.replace('$','');
+        formattedFunds = formattedFunds.replace('.','');
+        formattedFunds = formattedFunds.replace('-','');
 
+        await dispatch(
+            addFundsToUser({ id:appState.user.id, funds:+formattedFunds }));
+        
+        console.log(appState);
+        
+    }
+
+    
+    const addFundsDispatcher =  (e:any) => {
+        addFunds();
+        handleClose(e);
+    }
     return (
     <div>
         <Container>
@@ -114,15 +136,15 @@ export const UserInfoComponent:React.FC<any> = () => {
                 name="funds-input"
                 prefix="$"
                 placeholder="Please enter an amount"
-                defaultValue={20}
                 decimalsLimit={2}
+                onChange={handleChange}
                 />
         </Modal.Body>
         <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
             Cancel
         </Button>
-        <Button variant="primary" onClick={handleClose}>
+        <Button  variant="primary" onClick={addFundsDispatcher}>
             Add funds
         </Button>
         </Modal.Footer>

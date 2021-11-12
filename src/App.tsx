@@ -1,23 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
-import { NewListing } from "./Components/ListingComponents/NewListingComponent/NewListingComponent";
+import { NewListing } from "./Components/ListingComponents/NewListingComponent";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import { UserComponent } from "./Components/UserComponent/UserComponent";
-import { ListingView } from "./Components/ListingComponents/ListingViewComponent/ListingViewComponent";
+import { ListingView } from "./Components/ListingComponents/ListingViewComponent";
 import { Header } from "./Components/HeaderComponent/HeaderComponent";
-
 import { Home } from "./Components/HomeComponent/Home";
 import { Search } from "./Components/HomeComponent/Search";
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import { MyListingComponent } from "./Components/MyListingComponent/MyListingComponent";
 
 function App() {
+  useEffect(() => {
+    document.title = "GWENslist";
+  });
+
   return (
     <div className="App">
       <Router>
       <Header />
         <Switch>
-          <Route exact path="/new-listing">
+          <Route exact path="/create-listing">
             <NewListing />
+          </Route>
+          <Route exact path='/edit-listing'>
+            
           </Route>
           <Route exact path="/listing">
             <ListingView
@@ -31,6 +37,9 @@ function App() {
           </Route>
           <Route exact path="/user">
             <UserComponent />
+          </Route>
+          <Route exact path="/my-listing">
+            <MyListingComponent/>
           </Route>
           <Route exact path="">
             <div>
@@ -50,6 +59,3 @@ function App() {
 }
 
 export default App;
-
-// took this out of app div
-// <GetsUser/>

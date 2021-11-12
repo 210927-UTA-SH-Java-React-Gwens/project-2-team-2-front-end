@@ -6,7 +6,7 @@ let initialState: IMessages  [] = [];
 type Action = {
 
     type:string,
-    payload:object
+    payload:IMessages[]
 
 };
 
