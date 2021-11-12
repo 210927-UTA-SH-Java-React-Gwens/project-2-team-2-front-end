@@ -10,4 +10,4 @@ export const HOME_LISTINGS = 'HOME_LISTINGS';
 export const SEARCH_LISTINGS = 'SEARCH_LISTINGS';
 
 export const GET_MESSAGE = 'GET_MESSAGE';
-
+export const POST_MESSAGE = 'POST_MESSAGE';
