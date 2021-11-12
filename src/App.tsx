@@ -8,6 +8,7 @@ import { Header } from "./Components/HeaderComponent/HeaderComponent";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Home } from "./Components/HomeComponent/Home";
 import { Search } from "./Components/HomeComponent/Search";
+import { MyListingComponent } from "./Components/MyListingComponent/MyListingComponent";
 
 function App() {
   useEffect(() => {
@@ -37,6 +38,9 @@ function App() {
           </Route>
           <Route exact path="/user">
             <UserComponent />
+          </Route>
+          <Route exact path="/my-listing">
+            <MyListingComponent/>
           </Route>
           <Route exact path="">
             <div>

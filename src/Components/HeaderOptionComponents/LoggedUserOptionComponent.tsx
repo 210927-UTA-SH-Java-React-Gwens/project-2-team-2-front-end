@@ -26,6 +26,9 @@ export const LoggedUserOptionComponent : React.FC<any> = (history:any) => {
             history.history.push('/user');
     }
 
+    const sendMyListing = () => {
+        history.history.push('/my-listing');
+}
 
   return (
     <div >
@@ -37,7 +40,7 @@ export const LoggedUserOptionComponent : React.FC<any> = (history:any) => {
         </Dropdown.Toggle>
         <Dropdown.Menu >
             <Dropdown.Item onClick={sendUserPage}><FaUserTie/> Account</Dropdown.Item>
-            <Dropdown.Item href="#/action-2"><FaPiggyBank/> My Listing</Dropdown.Item>
+            <Dropdown.Item onClick={sendMyListing}><FaPiggyBank/> My Listing</Dropdown.Item>
             <Dropdown.Item onClick={logOut} ><FaSignOutAlt/> Log out </Dropdown.Item>
         </Dropdown.Menu>
     </Dropdown>

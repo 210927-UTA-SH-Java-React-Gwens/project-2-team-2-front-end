@@ -24,7 +24,7 @@ export const UserInfoComponent:React.FC<any> = () => {
     const handleShow = () => {setShow(true)};
 
     useEffect(() =>{
-        if(appState.user.username == username)
+        if(appState.user.username === username)
                 console.log('Success');
             else
                 console.log('Failed');
@@ -45,12 +45,12 @@ export const UserInfoComponent:React.FC<any> = () => {
     } 
 
     const update = async () => {
-        if(username!=appState.user.username){
+        if(username!==appState.user.username){
             await dispatch(
                 updateUserUsername({ id:appState.user.id, username }));
 
         }
-        if(email!=appState.user.email)
+        if(email!==appState.user.email)
         await dispatch(
             updateUserEmail({ id:appState.user.id, email }));   
         
@@ -61,7 +61,8 @@ export const UserInfoComponent:React.FC<any> = () => {
         let formattedFunds: string = addedFunds+'';
         formattedFunds = formattedFunds.replace('$','');
         formattedFunds = formattedFunds.replace('.','');
-        
+        formattedFunds = formattedFunds.replace('-','');
+
         await dispatch(
             addFundsToUser({ id:appState.user.id, funds:+formattedFunds }));
         
