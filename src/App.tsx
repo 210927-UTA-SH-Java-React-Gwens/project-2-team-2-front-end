@@ -23,9 +23,6 @@ function App() {
           <Route exact path="/create-listing">
             <NewListing />
           </Route>
-          <Route exact path='/edit-listing'>
-            
-          </Route>
           <Route exact path="/listing">
             <ListingView
               id="1"
