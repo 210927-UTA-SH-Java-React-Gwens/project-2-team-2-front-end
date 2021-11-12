@@ -5,7 +5,6 @@ import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import { UserComponent } from "./Components/UserComponent/UserComponent";
 import { ListingView } from "./Components/ListingComponents/ListingViewComponent";
 import { Header } from "./Components/HeaderComponent/HeaderComponent";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Home } from "./Components/HomeComponent/Home";
 import { Search } from "./Components/HomeComponent/Search";
 import { MyListingComponent } from "./Components/MyListingComponent/MyListingComponent";

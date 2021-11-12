@@ -1,6 +1,7 @@
 import {IMessages} from '../Store/types' ;
 
-let initialState: IMessages[] = [];
+let initialState: IMessages  [] = [];
+
 
 type Action = {
 
@@ -9,7 +10,7 @@ type Action = {
 
 };
 
-export const messageReducer = (state:IMessages[] = initialState, action:Action) =>{
+export const messageReducer = (state:IMessages[] = initialState, action:Action) => {
 
     switch(action.type){
         default:
