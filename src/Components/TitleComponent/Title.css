@@ -5,3 +5,7 @@
   text-decoration: none;
   margin: 1em;
 }
+
+#title:hover {
+  color: #a6126f;
+}
