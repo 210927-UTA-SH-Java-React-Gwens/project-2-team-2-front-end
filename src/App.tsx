@@ -13,6 +13,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import { VerifyAccountComponent } from "./Components/VerifyAccountComponent/VerifyAcountComponent";
 
 function App() {
   useEffect(() => {
@@ -36,12 +37,10 @@ function App() {
           <Route exact path="/my-listing">
             <MyListingComponent/>
           </Route>
-          <Route exact path="">
-            <div>
-              <p>Hello</p>
-            </div>
+          <Route exact path="/activation-page">
+            <VerifyAccountComponent/>
           </Route>
-          <Route exact path="/home">
+          <Route exact path="">
             <Home/>
           </Route>
           <Route exact path="/search">
@@ -52,5 +51,14 @@ function App() {
     </div>
   );
 }
+
+
+/*
+          <Route exact path="">
+            <div>
+              <p>Hello</p>
+            </div>
+          </Route>
+*/
 
 export default App;

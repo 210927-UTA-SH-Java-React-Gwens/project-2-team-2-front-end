@@ -1,4 +1,4 @@
-import {GET_USER,LOGIN_USER,CREATE_USER, LOGOUT_USER,UPDATE_USER_USERNAME, UPDATE_USER_EMAIL, UPDATE_USER_PASSWORD, ADD_FUNDS_TO_USER} from './ActionTypes';
+import {GET_USER,LOGIN_USER,CREATE_USER, LOGOUT_USER,UPDATE_USER_USERNAME, UPDATE_USER_EMAIL, UPDATE_USER_PASSWORD, ADD_FUNDS_TO_USER, VERIFY_USER_EMAIL} from './ActionTypes';
 import axios from 'axios';
 import { SERVER_ADDRESS } from '../server';
 
@@ -69,6 +69,8 @@ export const loginUser = (user:ILogin) => async (dispatch:any) => {
         }
         if(!retrievedUser.id)
             throw 'Incorrect credentials';
+        if(retrievedUser.email.includes("-"))
+            retrievedUser.id = -2;
 
         return dispatch({
             type: LOGIN_USER,
@@ -312,7 +314,6 @@ interface IAddFunds {
 export const addFundsToUser = (user:IAddFunds) => async (dispatch:any) => {
 
     try{
-        console.log(user);
         const res = await axios.post(SERVER_ADDRESS + 'user/add-funds', user);
         let updatedUser = {
 
@@ -345,6 +346,54 @@ export const addFundsToUser = (user:IAddFunds) => async (dispatch:any) => {
 
         return dispatch({
             type: ADD_FUNDS_TO_USER,
+            payload : failuser
+        });
+
+    }
+}
+
+
+interface IVerifyEmail {
+    username: string,
+    code: string
+}
+
+export const verifyUserEmail = (user:IVerifyEmail) => async (dispatch:any) => {
+
+    try{
+        const res = await axios.post(SERVER_ADDRESS + 'user/verify', user);
+        console.log(res);
+        let updatedUser = {
+
+            id: res.data.id,
+            username:res.data.username,
+            email:res.data.email,
+            funds : res.data.funds,
+            password : res.data.password
+    
+        }
+        if(!updatedUser.id)
+            throw 'Something went wrong';
+
+        return dispatch({
+            type: VERIFY_USER_EMAIL,
+            payload : updatedUser
+        });
+
+    }catch(e){
+
+        let failuser = {
+
+            id: -1,
+            username:'',
+            email:'',
+            funds : 0,
+            password : ''
+    
+        }
+
+        return dispatch({
+            type: VERIFY_USER_EMAIL,
             payload : failuser
         });
 
