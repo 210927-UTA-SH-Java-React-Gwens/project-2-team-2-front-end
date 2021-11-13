@@ -37,11 +37,6 @@ function App() {
             <MyListingComponent/>
           </Route>
           <Route exact path="">
-            <div>
-              <p>Hello</p>
-            </div>
-          </Route>
-          <Route exact path="/home">
             <Home/>
           </Route>
           <Route exact path="/search">
@@ -52,5 +47,14 @@ function App() {
     </div>
   );
 }
+
+
+/*
+          <Route exact path="">
+            <div>
+              <p>Hello</p>
+            </div>
+          </Route>
+*/
 
 export default App;
