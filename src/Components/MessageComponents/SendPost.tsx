@@ -4,6 +4,7 @@ import {useHistory} from 'react-router-dom';
 import {Container,Row,Col,Card,Form,Button} from 'react-bootstrap';
 import {Header} from '../HeaderComponent/HeaderComponent';
 import { MessageContainer } from './MessageContainer';
+
 /* import { MessageField } from './MessageField';*/
 
 export const SendPost: React.FC<any> = () => {
@@ -14,12 +15,21 @@ export const SendPost: React.FC<any> = () => {
     const history = useHistory();
 
     let [Content, setContent] = useState('');
-
+    
     const handleChange = (e:any) => {
         setContent(e.target.value);
     }
 
+
     const Send = async () => {
+        let postCont = {
+            author_id: appState.user.username,
+            reciever_id: appState.listing.author_id /* replace */,
+            listing_id: appState.listing.id /* replace */,
+            time: new Date(Date.now()).toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'}),
+            content: {Content}
+        }
+
         await dispatch(
             postMessage({Content})
         );

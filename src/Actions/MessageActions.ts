@@ -36,7 +36,7 @@ export const getMessageByAuthor = (user:GetMessage) => async (dispatch: any) => 
 export const postMessage = (user:PostMessage) => async (dispatch: any) => {
     let IMessages;
     try{
-        const res = await axios.post('htttp://localhost:8080/project-2-team-2-front-end/api/post' ,user);
+        const res = await axios.post('htttp://localhost:8080/project-2-team-2-front-end/api/create' ,user);
 
         IMessages = {
             id: res.data.id,
