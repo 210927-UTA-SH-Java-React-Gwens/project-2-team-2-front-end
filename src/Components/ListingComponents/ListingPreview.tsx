@@ -1,6 +1,7 @@
 import React from 'react';
 import {Container,Row,Col,Card,Form,Button} from 'react-bootstrap';
 import { formatAsMoney } from "./listing";
+import './ListingPreview.css'
 
 
 
@@ -16,6 +17,7 @@ id: number,
 
 
 export const ListingPreview : React.FC<any> = (listing:any) => {
+    console.log(listing);
     return(
         <Container>
             <div className="listing-itemized" key={listing.id}>
@@ -25,9 +27,9 @@ export const ListingPreview : React.FC<any> = (listing:any) => {
                     </Col>
                     <Col>
                         <h3 className="listing-title">{listing.title}</h3>
-                        <h4>{'$' + formatAsMoney(listing.price)}</h4>
-                        <p className="lv-desc">{listing.desc}</p>
-                        <h4>Posted by {listing.poster} on {listing.posted}</h4>
+                        <h4>{'$' + formatAsMoney(Number(listing.price).toString())}</h4>
+                        <div className="lv-desc" dangerouslySetInnerHTML={{__html: listing.content}}></div>
+                        <h4>Posted by {listing.poster} on {new Date(listing.posted).toLocaleString()}</h4>
                     </Col>
                 </Row>
             </div>
