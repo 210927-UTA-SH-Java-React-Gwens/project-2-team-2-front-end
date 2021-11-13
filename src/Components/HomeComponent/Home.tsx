@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Container,Row,Col,Card,Form,Button} from 'react-bootstrap';
+import {Container,Row,Col,Card,Form,Button,CardGroup} from 'react-bootstrap';
 import {homeListings} from '../../Actions/ListingActions';
 import {searchListings} from '../../Actions/ListingActions';
 import {ListingPreview} from '../ListingComponents/ListingPreview';
@@ -89,16 +89,20 @@ export const Home: React.FC<any> = (history:any) => {
                     </Col>
 
                 </Row>
-            </Form>            
+            </Form>
+            <div> 
+                <br/>          
+                <h3>Latest Listings</h3>
+                <br/>
+            </div>
             <Container fluid>
-                <div className="listings-container">
-                    <h3>Latest Listings:</h3>
+                <Row>
                     {listings ? listings.map((listing:any) => {
                         return(
                             <ListingPreview {...listing} key={listing.id} />
                         );
                     }) : <h3>loading...</h3>}
-                </div>
+                </Row>    
             </Container>
         </div>
       );
