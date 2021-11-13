@@ -13,6 +13,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import { VerifyAccountComponent } from "./Components/VerifyAccountComponent/VerifyAcountComponent";
 
 function App() {
   useEffect(() => {
@@ -35,6 +36,9 @@ function App() {
           </Route>
           <Route exact path="/my-listing">
             <MyListingComponent/>
+          </Route>
+          <Route exact path="/activation-page">
+            <VerifyAccountComponent/>
           </Route>
           <Route exact path="">
             <Home/>
