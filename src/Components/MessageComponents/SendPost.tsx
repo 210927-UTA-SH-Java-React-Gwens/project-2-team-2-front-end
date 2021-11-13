@@ -4,30 +4,26 @@ import {useHistory} from 'react-router-dom';
 import {Container,Row,Col,Card,Form,Button} from 'react-bootstrap';
 import {Header} from '../HeaderComponent/HeaderComponent';
 import { MessageContainer } from './MessageContainer';
-import { MessageField } from './MessageField';
+/* import { MessageField } from './MessageField';*/
 
 export const SendPost: React.FC<any> = () => {
+
     const appState = useSelector<any, any>((state) => state);
     const dispatch = useDispatch();
 
     const history = useHistory();
 
     let [Content, setContent] = useState('');
-    let [Sender_Id, setSender_Id] = useState('');
 
-const handleChange = (e:any) => {
-    if(e.target.name === 'Sender_Id'){
-        setSender_Id(e.target.value);
-    } else {
+    const handleChange = (e:any) => {
         setContent(e.target.value);
     }
-}
 
-const Send = async () => {
-    await dispatch(
-        postMessage({Sender_Id, Content})
-    );
-}
+    const Send = async () => {
+        await dispatch(
+            postMessage({Content})
+        );
+    }
 
     return (
         <div className="message">
@@ -41,7 +37,11 @@ const Send = async () => {
 
             </div>
             <div className="message-field-container">
-                <MessageField/>
+            <form>
+                <label>Message</label>
+                <input className='message-content' onChange={handleChange}/>
+                </form>
+                <button className="send-button" onClick={Send}>Send</button>
             </div>
         </div>
     )

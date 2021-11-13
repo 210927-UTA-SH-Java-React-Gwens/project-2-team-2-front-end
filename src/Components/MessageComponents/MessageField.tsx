@@ -1,3 +1,4 @@
+/*
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {postMessage} from "../../Actions/MessageActions";
@@ -6,7 +7,7 @@ export const MessageField: React.FC<any> = () =>{
     const sendMessage = async() => {
         
         await dispatch(
-            //create message object?
+            //create object to pass to postMessage
             postMessage({})
         );
         }
@@ -21,3 +22,4 @@ export const MessageField: React.FC<any> = () =>{
         </div>
     );
 }
+*/

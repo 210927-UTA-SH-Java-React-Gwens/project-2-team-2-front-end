@@ -15,12 +15,6 @@ export class Posts extends React.Component<any, IMessages>{
         };
     }
 
-    componentDidMount(){
-        //Replace this with user information from Login Session
-        this.setState({
-           
-        });
-    }
 
     return(){
         <div>

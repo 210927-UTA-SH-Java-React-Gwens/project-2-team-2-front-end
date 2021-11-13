@@ -1,6 +1,7 @@
 import {GET_MESSAGE, POST_MESSAGE} from './ActionTypes';
 import axios from 'axios';
 
+
 interface GetMessage {
     author_id: number,
     reciever_id: number,
@@ -33,15 +34,34 @@ export const getMessageByAuthor = (user:GetMessage) => async (dispatch: any) => 
 }
 
 export const postMessage = (user:PostMessage) => async (dispatch: any) => {
-    let SentMessage = IMessage;
+    let IMessages;
+    try{
+        const res = await axios.post('htttp://localhost:8080/project-2-team-2-front-end/api/post' ,user);
 
-    const res = await axios.post('htttp://localhost:8080/project-2-team-2-front-end/api/post' ,user);
+        IMessages = {
+            id: res.data.id,
+            sender_id: res.data.sender_id,
+            reciever_id: res.data.reciever_id,
+            time: res.data.time,
+            content: res.data.content
+        }
 
-    IMessage = {
-        author_id: res.data.author_id,
-        reciever_id: res.data.reciever_id,
-        listing_id: res.data.listing_id,
-        time: res.data.time,
-        content: res.data.content
+        return dispatch({
+            type: POST_MESSAGE,
+            payload: IMessages
+        });
+    } catch (e){
+        IMessages = {
+            author_id: -1,
+            reciever_id: -1,
+            listing_id: -1,
+            time: '',
+            content: ''
+        }
+
+        return dispatch({
+            type: POST_MESSAGE,
+            payload: IMessages
+        });
     }
 }
