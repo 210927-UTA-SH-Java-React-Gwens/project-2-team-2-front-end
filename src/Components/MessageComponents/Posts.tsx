@@ -15,7 +15,6 @@ export class Posts extends React.Component<any, IMessages>{
         };
     }
 
-
     return(){
         <div>
             <h2>{this.state.id}</h2>
