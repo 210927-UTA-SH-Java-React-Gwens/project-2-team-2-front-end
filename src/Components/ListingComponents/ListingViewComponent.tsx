@@ -74,7 +74,7 @@ export const ListingView: React.FC<any> = (props) => {
     }
   }, []);
 
-  if (!listingFound) return <p style={{color: "red"}}>No listing with ID [{id}] could be found.</p>
+  if (!listingFound) return <p style={{color: "red"}}>No listing with ID [{id}] could be found. It may have been deleted by the original lister.</p>
   else return (
     <div className="listing-view-full" key={props.id}>
         <h1 className="lv-title">{listing.title}</h1>
