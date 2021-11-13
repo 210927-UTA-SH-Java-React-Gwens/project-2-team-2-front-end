@@ -15,12 +15,27 @@ export const Home: React.FC<any> = (history:any) => {
     const appState = useSelector<any, any>((state) => state);
     const dispatch = useDispatch();
 
-    //let [listing, setListings] = useState([]);
+    let [listings, setListings] = useState([]);
+
+    /*
+    useEffect(() => {
+        console.log(appState);
+        loadListings();
+        setListings(appState.listing);
+    }, [appState.listing.length]);
+
+    const loadListings = async () => {
+        await dispatch(
+            searchListings()
+        );
+    }
+    */
 
     useEffect(() => {
         console.log(appState);
         loadListings();
-    }, []);
+        setListings(appState.listing);
+    }, [appState.listing.length]);
 
     const loadListings = async () => {
         await dispatch(
@@ -78,13 +93,11 @@ export const Home: React.FC<any> = (history:any) => {
             <Container fluid>
                 <div className="listings-container">
                     <h3>Latest Listings:</h3>
-                    {appState.listing.map=(listing:any) => {
+                    {listings ? listings.map((listing:any) => {
                         return(
-                            <div>
                             <ListingPreview {...listing} key={listing.id} />
-                            </div>
                         );
-                    }}
+                    }) : <h3>loading...</h3>}
                 </div>
             </Container>
         </div>

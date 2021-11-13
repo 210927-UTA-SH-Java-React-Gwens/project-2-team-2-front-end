@@ -6,7 +6,6 @@ import { UserComponent } from "./Components/UserComponent/UserComponent";
 import { ListingView } from "./Components/ListingComponents/ListingViewComponent";
 import { Header } from "./Components/HeaderComponent/HeaderComponent";
 import { Home } from "./Components/HomeComponent/Home";
-import { Search } from "./Components/HomeComponent/Search";
 import { MyListingComponent } from "./Components/MyListingComponent/MyListingComponent";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -44,9 +43,6 @@ function App() {
           </Route>
           <Route exact path="">
             <Home/>
-          </Route>
-          <Route exact path="/search">
-            <Search/>
           </Route>
         </Switch>
       </Router>
