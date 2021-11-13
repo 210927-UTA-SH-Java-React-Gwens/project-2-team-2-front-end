@@ -1,5 +1,5 @@
 import {IUser} from '../Store/types';
-import {GET_USER,LOGIN_USER,CREATE_USER, LOGOUT_USER,UPDATE_USER_USERNAME, UPDATE_USER_EMAIL, UPDATE_USER_PASSWORD, ADD_FUNDS_TO_USER} from '../Actions/ActionTypes';
+import {GET_USER,LOGIN_USER,CREATE_USER, LOGOUT_USER,UPDATE_USER_USERNAME, UPDATE_USER_EMAIL, UPDATE_USER_PASSWORD, ADD_FUNDS_TO_USER, VERIFY_USER_EMAIL} from '../Actions/ActionTypes';
 
 let initialState:IUser = {
     id: 0,
@@ -20,12 +20,17 @@ export const userReducer = (state:IUser = initialState, action:Action) =>{
 
     switch(action.type){
         case LOGIN_USER:
+            console.log(action.payload);
             initialState = action.payload;
+            if(action.payload.id===-1)
+                alert('Wrong credentials');
             return {
                 ...initialState
             }
         case CREATE_USER:
-            initialState = action.payload;
+            //initialState = action.payload;
+            if(action.payload.id>0)
+                alert('Account created, please confirm your email');
             return {
                 ...initialState
             }
@@ -60,6 +65,17 @@ export const userReducer = (state:IUser = initialState, action:Action) =>{
         case ADD_FUNDS_TO_USER:
             if(action.payload.id>0)
                 initialState = action.payload;
+                return {
+                    ...initialState
+                }
+        case VERIFY_USER_EMAIL:
+            if(action.payload.id>0){
+                initialState = action.payload;
+                alert('Email verified, welcome!');
+            }
+            else
+                alert('Incorrect code');
+                
                 return {
                     ...initialState
                 }

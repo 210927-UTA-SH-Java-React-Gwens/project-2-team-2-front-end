@@ -14,19 +14,20 @@ id: number,
     category:string
 */
 
-export const ListingPreview : React.FC<any> = (props) => {
+
+export const ListingPreview : React.FC<any> = (listing:any) => {
     return(
         <Container>
-            <div className="listing-itemized" key={props.id}>
+            <div className="listing-itemized" key={listing.id}>
                 <Row className="align-items-left">
                     <Col xs={4}>
                         <img className="listing-image" src=""></img>
                     </Col>
                     <Col>
-                        <h3 className="listing-title">{props.title}</h3>
-                        <h4>{'$' + formatAsMoney(props.price)}</h4>
-                        <p className="lv-desc">{props.desc}</p>
-                        <h4>Posted by {props.poster} on {props.posted}</h4>
+                        <h3 className="listing-title">{listing.title}</h3>
+                        <h4>{'$' + formatAsMoney(listing.price)}</h4>
+                        <p className="lv-desc">{listing.desc}</p>
+                        <h4>Posted by {listing.poster} on {listing.posted}</h4>
                     </Col>
                 </Row>
             </div>

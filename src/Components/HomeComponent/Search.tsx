@@ -25,10 +25,7 @@ export const Search: React.FC<any> = () => {
     }
 
     return (
-        <div className="home">
-            <div className="gwen-header">
-                <Header/>
-            </div>
+        <div className="search">
             <Form>
                 <Row className="align-items-left">
                     <Col md={4}>

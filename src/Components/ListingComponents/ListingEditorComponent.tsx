@@ -12,18 +12,17 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { formatAsMoney } from "./listing";
 import { ImageViewer, Img } from "../ImageViewerComponent/ImageViewerComponent";
-//import "./NewListing.css";
 import "./NewListing.css";
 import axios from "axios";
 import { SERVER_ADDRESS } from "../../server";
+import { Redirect } from "react-router";
 
-export const NewListing: React.FC<any> = (props?: any) => {
+export const ListingEditor: React.FC<any> = (props?: any) => {
   useEffect(() => {
     document.title = "Create a new listing | GWENslist";
 
-    if (props?.defaults) {
-      if (props.defaults.images) setImages(props.defaults.images);
-    }
+    if (props?.defaults && props.defaults.images)
+      setImages(props.defaults.images);
   }, []);
 
   // State for turning on/off the form fieldset disabled property
@@ -44,6 +43,8 @@ export const NewListing: React.FC<any> = (props?: any) => {
   // State holding the simple listing information to send to the backend
   const [formData, setFormData] = useState(new FormData());
 
+  const [listingId, setListingId] = useState(0);
+
   let updateFormData = (name: string, value: any) => {
     formData.set(name, value);
     setFormData(formData);
@@ -61,7 +62,11 @@ export const NewListing: React.FC<any> = (props?: any) => {
         .post(SERVER_ADDRESS + "listing/new", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
-        .then((res) => console.log(res));
+        .then((res) => {
+          setListingId(res.data.id)
+          console.log(res.data);
+        })
+        .catch(err => console.log(err));
 
       (() => new Promise((resolve) => setTimeout(resolve, 3000)))().then(() =>
         setFsetDisabled(false)
@@ -113,7 +118,9 @@ export const NewListing: React.FC<any> = (props?: any) => {
     addImages(imgs);
   };
 
-  return (
+  if (listingId !== 0)
+    return (<Redirect to={'/listing?id=' + listingId}/>);
+  else return (
     <div>
       <Form noValidate validated={formValidated} onSubmit={formSubmit}>
         <fieldset {...(fSetDisabled ? { disabled: true } : {})}>
@@ -199,7 +206,19 @@ export const NewListing: React.FC<any> = (props?: any) => {
   );
 };
 
-let CustomCategoryInput: React.FC<any> = (props: any) => {
+
+
+/**
+ * Functional Component representing a category select input field with
+ * an Other field that lets the user input their own custom category.
+ * 
+ * @param props Should only contain the name of a category to set as
+ * the default. If no category is specified, it will default to the
+ * disabled empty value.
+ * 
+ * @returns The resulting component
+ */
+let CustomCategoryInput: React.FC<any> = (props?: any) => {
   let categories = [
     "Collectibles",
     "Electronics",
@@ -213,16 +232,20 @@ let CustomCategoryInput: React.FC<any> = (props: any) => {
   ];
 
   const getDefaultValue = () => {
-    // Check if a default value was passed in
+    if (!props)
+      return "";
+
+    // Check if a default value was passed in (not sure datatype)
     if (!(props.defaultValue in ["", null, undefined])) {
       if (props.defaultValue in categories)
         // Predefined default category
         return props.defaultValue;
-
-      // Custom category, set custom category input
-      setCustomView(true);
-      setCustomCat(props.defaultValue);
-      return "Other";
+      else {
+        // Custom category, set custom category input
+        setCustomView(true);
+        setCustomCat(props.defaultValue);
+        return "Other";
+      }
     }
 
     // No default value
@@ -237,10 +260,10 @@ let CustomCategoryInput: React.FC<any> = (props: any) => {
   };
 
   // State for turning on/off the custom category input display
-  const [customView, setCustomView] = useState(false);
+  const [customView, setCustomView] = useState(props?.defaultValue ? true : false);
 
   // State holding the value of the custom category input field
-  const [customCat, setCustomCat] = useState("Other");
+  const [customCat, setCustomCat] = useState(props?.defaultValue ? props.defaultValue : "Other");
 
   return (
     <Form.Group as={Col} className="form-group">
@@ -248,7 +271,6 @@ let CustomCategoryInput: React.FC<any> = (props: any) => {
       <Form.Control
         as="select"
         name="category"
-        defaultValue={getDefaultValue()}
         onChange={(e) => {
           if (e.target.value === "Other") {
             setCustomView(true);
@@ -258,6 +280,7 @@ let CustomCategoryInput: React.FC<any> = (props: any) => {
             props.update("category", e.target.value);
           }
         }}
+        defaultValue={props?.defaultValue ? props.defaultValue : ""}
         required
       >
         <option value="" disabled>
@@ -278,6 +301,7 @@ let CustomCategoryInput: React.FC<any> = (props: any) => {
         name="custom"
         placeholder="Custom category..."
         onChange={setCategory}
+        defaultValue={props?.defaultValue ? props.defaultValue : ""}
       />
       <Form.Control.Feedback type="invalid">
         You must categorize your listing
@@ -285,6 +309,8 @@ let CustomCategoryInput: React.FC<any> = (props: any) => {
     </Form.Group>
   );
 };
+
+
 
 let PriceInput: React.FC<any> = (props: any) => {
   const setPrice = (e: React.FocusEvent<HTMLInputElement>) => {

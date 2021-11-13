@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { SERVER_ADDRESS } from '../server';
 import {GET_LISTING, HOME_LISTINGS, SEARCH_LISTINGS} from './ActionTypes';
+import {IListing} from '../Store/types';
+
 
 /*
 id: number,
@@ -42,7 +44,7 @@ interface HomeListings {
 export const homeListings = () => async (dispatch: any) => {
 
     try{
-        let res = await axios.get(SERVER_ADDRESS);
+        let res = await axios.get(SERVER_ADDRESS + '/home');
         console.log(res.data);
         return dispatch({
             type: HOME_LISTINGS,

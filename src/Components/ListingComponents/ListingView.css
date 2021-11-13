@@ -1,0 +1,11 @@
+.lv-desc {
+  border: 2px solid #cdcdcd;
+  border-radius: 1em;
+  width: fit-content;
+  padding: 1em;
+  margin: auto;
+}
+
+.lv-desc p {
+  margin: 0;
+}
