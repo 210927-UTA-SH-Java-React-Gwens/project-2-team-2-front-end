@@ -362,7 +362,6 @@ export const verifyUserEmail = (user:IVerifyEmail) => async (dispatch:any) => {
 
     try{
         const res = await axios.post(SERVER_ADDRESS + 'user/verify', user);
-        console.log(res);
         let updatedUser = {
 
             id: res.data.id,
@@ -394,6 +393,54 @@ export const verifyUserEmail = (user:IVerifyEmail) => async (dispatch:any) => {
 
         return dispatch({
             type: VERIFY_USER_EMAIL,
+            payload : failuser
+        });
+
+    }
+}
+
+interface IRejoin {
+    id:number
+}
+
+export const rejoinSession = (user:IRejoin) => async (dispatch:any) => {
+
+    try{
+        console.log("Rejoin methodbeginning");
+        const res = await axios.get(SERVER_ADDRESS + `user/get-user?id=${user.id}`);
+        console.log("Rejoin method");
+        console.log(res);
+        let logUser = {
+
+            id: res.data.id,
+            username:res.data.username,
+            email:res.data.email,
+            funds : res.data.funds,
+            password : res.data.password
+    
+        }
+        if(!logUser.id)
+            throw 'Something went wrong';
+
+        return dispatch({
+            type: LOGIN_USER,
+            payload : logUser
+        });
+
+    }catch(e){
+
+        let failuser = {
+
+            id: -1,
+            username:'',
+            email:'',
+            funds : 0,
+            password : ''
+    
+        }
+
+        return dispatch({
+            type:  LOGIN_USER,
             payload : failuser
         });
 

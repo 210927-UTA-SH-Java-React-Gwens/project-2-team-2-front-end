@@ -19,7 +19,6 @@ export const LoginComponent:React.FC<any> = () => {
     //Used to define consecuences on appstate change
     useEffect(() => {
         console.log(appState);
-        localStorage.setItem('user',appState.user); //We have to read this everytime a page reloads
     }, [appState]);
 
     const handleChange = (e:any) =>{
