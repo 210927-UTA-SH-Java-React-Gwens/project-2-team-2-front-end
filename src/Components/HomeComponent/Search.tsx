@@ -22,9 +22,9 @@ export const Search: React.FC<any> = (history:any) => {
     }, [appState.listing.length]);
 
     const loadListings = async () => {
-        await dispatch(
+        /*await dispatch(
             searchListings()
-        );
+        );*/
     }
 
     const toBookmarks = () => {

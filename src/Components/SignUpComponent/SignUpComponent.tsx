@@ -17,13 +17,11 @@ export const SignUpComponent: React.FC<any> = () => {
     else setEmail(e.target.value);
   };
 
-    const handleChange = (e:any) =>{
-        if(e.target.name === "username")
-            setUsername(e.target.value);
-        else if(e.target.name === "password")
-            setPassword(e.target.value);
-        else
-            setEmail(e.target.value);
+     const register = async () => {
+        await dispatch(
+            createUser({username,email,funds:0,password}));
+
+    }
 
   return (
     <div>

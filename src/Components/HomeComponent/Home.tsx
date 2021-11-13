@@ -78,13 +78,13 @@ export const Home: React.FC<any> = (history:any) => {
             <Container fluid>
                 <div className="listings-container">
                     <h3>Latest Listings:</h3>
-                    {appState.listing.map((listing:any) => {
+                    {appState.listing.map=(listing:any) => {
                         return(
                             <div>
                             <ListingPreview {...listing} key={listing.id} />
                             </div>
                         );
-                    })}
+                    }}
                 </div>
             </Container>
         </div>

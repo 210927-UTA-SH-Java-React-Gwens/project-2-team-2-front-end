@@ -22,7 +22,7 @@ type Action = {
 
 };
 
-export const listingReducer = (state = initialAppState, action:Action) =>{
+export const listingReducer = (state:any = initialAppState, action:Action) =>{
 
     switch(action.type){
         case HOME_LISTINGS:
