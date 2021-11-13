@@ -10,15 +10,22 @@ export type Img = {
 };
 
 export const ImageViewer: React.FC<any> = (props: any) => {
+  // Index of the image currently being displayed
   const [curIndex, setCurIndex] = useState(0);
+  // The modal displays the current image in a focused, larger view
   const [showModal, setShowModal] = useState("");
+  // Length of the images prop, used to determine if an image was added or removed
   const [length, setLength] = useState(0);
 
   function changeImage(i: number) {
-    while (i < 0) i += props.images.length;
-    setCurIndex(i % props.images.length);
-    console.log(curIndex, props.images);
-    if (props.setKey) props.setKey(props.images[curIndex]["key"]);
+    // Make sure i is between 0 and images length
+    while (i < 0)
+      i += props.images.length;
+    i %= props.images.length;
+
+    setCurIndex(i);
+    if (props.setKey)
+      props.setKey(props.images[i]["key"]);
   }
 
   function changeImageByKey(key: string) {
