@@ -14,6 +14,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { VerifyAccountComponent } from "./Components/VerifyAccountComponent/VerifyAcountComponent";
+import { SessionManager } from "./Components/SessionManager/SessionManager";
 
 function App() {
   useEffect(() => {
@@ -23,6 +24,7 @@ function App() {
   return (
     <div className="App">
       <Router>
+      <SessionManager/>
       <Header />
         <Switch>
           <Route exact path="/create-listing">
