@@ -35,7 +35,7 @@ export const Home: React.FC<any> = () => {
   const [modalView, setModalView] = useState<Listing | null>(null);
   const [search, setSearch] = useState("");
 
-  let history = useHistory();
+  const history = useHistory();
 
   const toBookmarks = () => {
     history.push("/bookmarks");
