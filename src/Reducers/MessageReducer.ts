@@ -25,6 +25,12 @@ export const messageReducer = (state:IMessages = initialState, action:Action) =>
             return{
                 ...initialState
             }
+        case GET_MESSAGE:
+            initialState = action.payload;
+            return{
+                ...initialState
+            }
+
         default:
             return state;
     }

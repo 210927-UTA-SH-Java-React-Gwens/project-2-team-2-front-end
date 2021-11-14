@@ -1,24 +1,21 @@
-import React from 'react';
-import { IMessages } from '../../Store/types';
+import React, {useState, useEffect} from 'react';
+import { getConversation } from '../../Actions/MessageActions';
+import {useSelector} from 'react-redux';
 
-export class Posts extends React.Component<any, IMessages>{
+export const Posts: React.FC<any> = (props:any) => {
 
-    constructor(props:any){
-        super(props);
+    const appState = useSelector<any, any>((state) => state);
 
-        this.state ={
-            id: 0,
-            sender_id: 0,
-            receiver_id: 0,
-            time: '',
-            content: ''
-        };
-    }
-
-    return(){
+    useEffect(() => {
+        setInterval( async() => {
+            getConversation(appState.user.username, props.username2);
+        }, 10000);
+    },[])
+    
+    return(
         <div>
-            <h2>{this.state.id}</h2>
-            <span><p>{this.state.content}</p><p>{this.state.time}</p></span>
+            <h2>{appState.Message.sender_id}</h2>
+            <span><p>{appState.Message.content}</p><p>{appState.Message.time}</p></span>
         </div>
-    }
+    )
 }
