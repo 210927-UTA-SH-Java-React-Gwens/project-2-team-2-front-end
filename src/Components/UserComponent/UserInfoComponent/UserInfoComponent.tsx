@@ -40,8 +40,7 @@ export const UserInfoComponent:React.FC<any> = () => {
         else if (e.target.name === 'email')
             setEmail(e.target.value);
         else if (e.target.name === 'funds-input')
-            setAddedFunds(e.target.value);
-
+                setAddedFunds(e.target.value);
     } 
 
     const update = async () => {
@@ -58,16 +57,25 @@ export const UserInfoComponent:React.FC<any> = () => {
     }
 
     const addFunds = async () => {
+        let dollars = false;
+        let oneDecimal = false;
         let formattedFunds: string = addedFunds+'';
         formattedFunds = formattedFunds.replace('$','');
+
+        if(!formattedFunds.includes('.')) dollars = true;
+        if(formattedFunds.indexOf('.')===formattedFunds.length-2) oneDecimal = true;
+
         formattedFunds = formattedFunds.replace('.','');
         formattedFunds = formattedFunds.replace('-','');
 
+        if(dollars)
+            formattedFunds = formattedFunds + '00';
+        else if (oneDecimal)
+            formattedFunds = formattedFunds + '0';
+
         await dispatch(
             addFundsToUser({ id:appState.user.id, funds:+formattedFunds }));
-        
-        console.log(appState);
-        
+                
     }
 
     
