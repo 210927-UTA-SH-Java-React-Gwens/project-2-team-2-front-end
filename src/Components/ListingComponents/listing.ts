@@ -62,7 +62,7 @@ export const formatAsMoney = (value: string) => {
  * @returns Object representing a listing
  */
 export const getListingPreview = async(l_id: number) => {
-  let res = await axios.get(`${SERVER_ADDRESS}/listing?id=${l_id}`);
+  let res = await axios.get(`${SERVER_ADDRESS}/listing/search?id=${l_id}`);
   if (res.status === 404)
     return defaultListing;
 
@@ -215,5 +215,9 @@ export async function* getRecentListings() {
  * @returns List of listings that match the search criteria
  */
 export async function* searchListings(keyword:string) {
-  yield* getListingPreviewsByURL(`${SERVER_ADDRESS}/listing/search=${keyword}`);
+  yield* getListingPreviewsByURL(`${SERVER_ADDRESS}/listing/search?query=${keyword}`);
 };
+
+export async function* getUserListings(username:string) {
+  yield* getListingPreviewsByURL(`${SERVER_ADDRESS}/listing/search?user=${username}`);
+}
