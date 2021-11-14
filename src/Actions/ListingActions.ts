@@ -21,7 +21,7 @@ interface GetListing {
 export const getListing = (user:GetListing) => async (dispatch: any) => {
     
     try{
-        let res = await axios.get(SERVER_ADDRESS);
+        let res = await axios.get(SERVER_ADDRESS + '/listing');
         console.log(res.data);
         return dispatch({
             type: GET_LISTING,
@@ -44,7 +44,7 @@ interface HomeListings {
 export const homeListings = () => async (dispatch: any) => {
 
     try{
-        let res = await axios.get(SERVER_ADDRESS + '/home');
+        let res = await axios.get(SERVER_ADDRESS + '/listing/recent');
         console.log(res.data);
         return dispatch({
             type: HOME_LISTINGS,
@@ -66,10 +66,10 @@ interface SearchListings {
     content:string
 }
 
-export const searchListings = () => async (dispatch: any) => {
+export const searchListings = (keyword:any) => async (dispatch: any) => {
 
     try{
-        let res = await axios.get(SERVER_ADDRESS);
+        let res = await axios.get(SERVER_ADDRESS + '/listing/search/' + keyword);
         console.log(res.data);
         return dispatch({
             type: SEARCH_LISTINGS,

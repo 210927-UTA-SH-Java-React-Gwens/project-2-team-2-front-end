@@ -24,6 +24,10 @@ export const userReducer = (state:IUser = initialState, action:Action) =>{
             initialState = action.payload;
             if(action.payload.id===-1)
                 alert('Wrong credentials');
+            else if(action.payload.id >0)
+                sessionStorage.setItem('user',action.payload.id); //We have to read this everytime a page reloads
+
+
             return {
                 ...initialState
             }
@@ -41,7 +45,8 @@ export const userReducer = (state:IUser = initialState, action:Action) =>{
             } 
         case LOGOUT_USER:
             initialState = action.payload;
-                return {
+            sessionStorage.removeItem('user');
+            return {
                     ...initialState
                 } 
         case UPDATE_USER_USERNAME:
@@ -71,6 +76,7 @@ export const userReducer = (state:IUser = initialState, action:Action) =>{
         case VERIFY_USER_EMAIL:
             if(action.payload.id>0){
                 initialState = action.payload;
+                sessionStorage.setItem('user',action.payload.id); //We have to read this everytime a page reloads
                 alert('Email verified, welcome!');
             }
             else

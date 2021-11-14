@@ -34,3 +34,24 @@ export type AppState = {
     messages: IMessages[]
 
 }
+
+export type Img = {
+  name: string;
+  data: File;
+  key: string;
+  src: string;
+};
+
+
+
+export type Listing = {
+    id: number;
+    title: string;
+    price: number;
+    content: string;
+    category: string;
+    poster: IUser;
+    purchaser?: IUser;
+    posted: Date;
+    images: Img[];
+}

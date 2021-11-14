@@ -1,0 +1,16 @@
+.listing-itemized {
+  margin: 1em;
+  background-color: #eeeeee;
+}
+
+.listing-card {
+  margin: 1em;
+}
+
+.listing-card:hover {
+  border: 1px solid #bbbbbb;
+}
+
+.listing-card:active {
+  border: 1px solid #999999;
+}
