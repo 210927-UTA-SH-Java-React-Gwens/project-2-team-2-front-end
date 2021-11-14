@@ -33,7 +33,7 @@ export const ListingPreview : React.FC<any> = (props:{listing:Listing}&any) => {
                 <Card.Body>
                     <Card.Title>{props.listing.title}</Card.Title>
                     <Card.Subtitle>{'$' + formatAsMoney(Number(props.listing.price).toString())}</Card.Subtitle>
-                    <Card.Text className="lv-desc" dangerouslySetInnerHTML={{__html: props.listing.content}}></Card.Text>
+                    <Card.Text>In category <b>{props.listing.category}</b></Card.Text>
                     <Button variant="outline-primary" size="sm">View</Button>
                     <Button variant="outline-success" size="sm">Message</Button>
                     <Card.Footer>

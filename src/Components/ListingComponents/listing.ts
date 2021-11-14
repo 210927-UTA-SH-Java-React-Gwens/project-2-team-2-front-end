@@ -83,18 +83,6 @@ export const getListingPreview = async(l_id: number) => {
 
 
 
-const getListingPreviewsByURL = async (url:string) => {
-  let res = await axios.get(url);
-
-  let listings = res.data;
-  for (let i = 0; i < listings.length; i++)
-    listings[i].price = listings[i].price / 100;
-
-  return listings;
-}
-
-
-
 /**
  * Send a GET request to the server for all of a listing's images
  * @param l_id ID of the listing to get the images for
@@ -196,14 +184,29 @@ export const getPreviewImage = (listing:number) => {
 
 
 
+async function* getListingPreviewsByURL(url:string) {
+  let res = await axios.get(url);
+
+  let listings = res.data;
+  for (let i = 0; i < listings.length; i++) 
+    listings[i].price = listings[i].price / 100;
+
+  for (let listing of listings) {
+    let img = await getPreviewImage(listing.id);
+    listing['image'] = img;
+    yield listing;
+  }
+}
+
+
+
 /**
  * Get the most recent listing objects
  * @returns Array containing the most recent listings
  */
-export const getRecentListings = () => {
-  return getListingPreviewsByURL(`${SERVER_ADDRESS}/listing/recent`)
-  .then(listings => listings);
-}
+export async function* getRecentListings() {
+  yield* getListingPreviewsByURL(`${SERVER_ADDRESS}/listing/recent`);
+};
 
 
 /**
@@ -211,7 +214,6 @@ export const getRecentListings = () => {
  * @param keyword String to check against listing titles/descriptions
  * @returns List of listings that match the search criteria
  */
-export const searchListings = (keyword:string) => {
-  return getListingPreviewsByURL(`${SERVER_ADDRESS}/listing/search=${keyword}`)
-  .then(listings => listings);
-}
+export async function* searchListings(keyword:string) {
+  yield* getListingPreviewsByURL(`${SERVER_ADDRESS}/listing/search=${keyword}`);
+};
