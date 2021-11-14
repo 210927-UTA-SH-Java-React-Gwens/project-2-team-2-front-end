@@ -1,10 +1,8 @@
 import { HOME_LISTINGS, SEARCH_LISTINGS } from '../Actions/ActionTypes';
 import {IListing} from '../Store/types';
 
-let initialAppState = {
-    keyword: '',
-    listing: [] 
-}
+let initialAppState: IListing[]=[];
+
 /*
 id: number,
     price: number,
@@ -17,24 +15,25 @@ id: number,
 
 type Action = {
 
-    type: string, 
+    type: string,
+    keyword: '', 
     payload:IListing[]
 
 };
 
-export const listingReducer = (state:any = initialAppState, action:Action) =>{
+export const listingReducer = (state = initialAppState, action:Action) => {
 
     switch(action.type){
         case HOME_LISTINGS:
-            return {
-                ...state,
-                lising: action.payload
-            };
+            return action.payload;/*{
+                listing: action.payload,
+                ...state
+            };*/
 
         case SEARCH_LISTINGS:
             return {
                 ...state,
-                lising: action.payload
+                listing: action.payload
             };
         default:
             return state;

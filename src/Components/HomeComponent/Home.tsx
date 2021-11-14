@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Container,Row,Col,Card,Form,Button} from 'react-bootstrap';
+import {Container,Row,Col,Card,Form,Button,CardGroup} from 'react-bootstrap';
 import {homeListings} from '../../Actions/ListingActions';
 import {searchListings} from '../../Actions/ListingActions';
 import {ListingPreview} from '../ListingComponents/ListingPreview';
@@ -15,12 +15,27 @@ export const Home: React.FC<any> = (history:any) => {
     const appState = useSelector<any, any>((state) => state);
     const dispatch = useDispatch();
 
-    //let [listing, setListings] = useState([]);
+    let [listings, setListings] = useState([]);
+
+    /*
+    useEffect(() => {
+        console.log(appState);
+        loadListings();
+        setListings(appState.listing);
+    }, [appState.listing.length]);
+
+    const loadListings = async () => {
+        await dispatch(
+            searchListings()
+        );
+    }
+    */
 
     useEffect(() => {
         console.log(appState);
         loadListings();
-    }, []);
+        setListings(appState.listing);
+    }, [appState.listing.length]);
 
     const loadListings = async () => {
         await dispatch(
@@ -74,18 +89,20 @@ export const Home: React.FC<any> = (history:any) => {
                     </Col>
 
                 </Row>
-            </Form>            
+            </Form>
+            <div> 
+                <br/>          
+                <h3>Latest Listings</h3>
+                <br/>
+            </div>
             <Container fluid>
-                <div className="listings-container">
-                    <h3>Latest Listings:</h3>
-                    {appState.listing.map=(listing:any) => {
+                <Row>
+                    {listings ? listings.map((listing:any) => {
                         return(
-                            <div>
                             <ListingPreview {...listing} key={listing.id} />
-                            </div>
                         );
-                    }}
-                </div>
+                    }) : <h3>loading...</h3>}
+                </Row>    
             </Container>
         </div>
       );

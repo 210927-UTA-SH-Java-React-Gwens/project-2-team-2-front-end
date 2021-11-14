@@ -19,20 +19,54 @@ id: number,
 export const ListingPreview : React.FC<any> = (listing:any) => {
     console.log(listing);
     return(
-        <Container>
+        <Col xs={3}>
+            <Card style={{margin:'10px'}}>
+                <Card.Img variant="top" src=""/>
+                <Card.Body>
+                    <Card.Title>{listing.title}</Card.Title>
+                    <Card.Subtitle>{'$' + formatAsMoney(Number(listing.price).toString())}</Card.Subtitle>
+                    <Card.Text><div className="lv-desc" dangerouslySetInnerHTML={{__html: listing.content}}></div></Card.Text>
+                    <Button variant="outline-primary" size="sm">View</Button>
+                    <Button variant="outline-success" size="sm">Message</Button>
+                    <Card.Footer>
+                        <small className="text-muted">Posted by {listing.poster.username}<br/> on {new Date(listing.posted).toLocaleString()}</small>
+                    </Card.Footer>
+                </Card.Body>
+            </Card>
+        </Col>
+    );
+}
+
+/*
+<Card style={{width: '10rem'}}>
+    <Card.Img variant="top" src=""/>
+    <Card.Body>
+        <Card.Title>{listing.title}</Card.Title>
+        <Card.Subtitle>{'$' + formatAsMoney(Number(listing.price).toString())}</Card.Subtitle>
+        <Card.Text><div className="lv-desc" dangerouslySetInnerHTML={{__html: listing.content}}></div></Card.Text>
+        <Card.Text>Posted by {listing.poster.username}<br/> on {new Date(listing.posted).toLocaleString()}</Card.Text>
+        <Button variant="outline-primary" size="sm">View</Button>
+        <Button variant="outline-success" size="sm">Message</Button>
+    </Card.Body>
+</Card>
+*/
+
+/*
+<Container>
             <div className="listing-itemized" key={listing.id}>
                 <Row className="align-items-left">
-                    <Col xs={4}>
+                    <Col md={3}>
                         <img className="listing-image" src=""></img>
                     </Col>
-                    <Col>
-                        <h3 className="listing-title">{listing.title}</h3>
-                        <h4>{'$' + formatAsMoney(Number(listing.price).toString())}</h4>
+                    <Col md={3}>
+                        <h5 className="listing-title">{listing.title}</h5>
+                        <p>{'$' + formatAsMoney(Number(listing.price).toString())}</p>
+                        <h6>Posted by {listing.poster.username}<br/> on {new Date(listing.posted).toLocaleString()}</h6>
+                    </Col>
+                    <Col md={6}>
                         <div className="lv-desc" dangerouslySetInnerHTML={{__html: listing.content}}></div>
-                        <h4>Posted by {listing.poster} on {new Date(listing.posted).toLocaleString()}</h4>
                     </Col>
                 </Row>
             </div>
         </Container>
-    );
-}
+*/
