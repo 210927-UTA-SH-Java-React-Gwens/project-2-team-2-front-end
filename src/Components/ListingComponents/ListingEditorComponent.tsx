@@ -110,8 +110,6 @@ export const ListingEditor: React.FC<any> = (props?: any) => {
         name: target.files[i].name,
         key: `img${key++}`,
       });
-
-      formData.append("images", target.files[i]);
     }
 
     setImgKey(key + 1);

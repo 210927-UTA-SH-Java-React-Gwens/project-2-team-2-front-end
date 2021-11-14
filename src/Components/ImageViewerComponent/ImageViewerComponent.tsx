@@ -64,7 +64,7 @@ export const ImageViewer: React.FC<any> = (props: any) => {
           {"<"}
         </Button>
         <img
-          className="image"
+          className="main-image"
           src={props.images.length ? props.images[curIndex]["src"] : ""}
           alt={props.images.length ? props.images[curIndex]["name"] : ""}
           onClick={() => setShowModal(props.images[curIndex]["src"])}
