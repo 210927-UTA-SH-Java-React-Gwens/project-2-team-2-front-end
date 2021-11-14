@@ -10,7 +10,7 @@ interface GetUserI {
 export const getUser = (user:GetUserI) => async (dispatch: any) => {
 
     try{
-    const res = await axios.get(SERVER_ADDRESS + 'user/u?id=1');
+    const res = await axios.get(SERVER_ADDRESS + '/user/u?id=1');
     
 
     let user = {
@@ -57,7 +57,7 @@ export const loginUser = (user:ILogin) => async (dispatch:any) => {
 
     try{
     
-        const res = await axios.post(SERVER_ADDRESS + 'user/login',user);
+        const res = await axios.post(SERVER_ADDRESS + '/user/login',user);
         let retrievedUser = {
 
             id: res.data.id,
@@ -108,7 +108,7 @@ export const createUser = (user:ICreateUser) => async (dispatch:any) => {
 
     try{
         
-        const res = await axios.post(SERVER_ADDRESS + 'user/create-user', user);
+        const res = await axios.post(SERVER_ADDRESS + '/user/create-user', user);
         let createdUser = {
 
             id: res.data.id,
@@ -173,7 +173,7 @@ export const updateUserUsername = (user:IUpdateUserUsername) => async (dispatch:
 
     try{
         
-        const res = await axios.post(SERVER_ADDRESS + 'user/update-username', user);
+        const res = await axios.post(SERVER_ADDRESS + '/user/update-username', user);
         let updatedUser = {
 
             id: res.data.id,
@@ -221,7 +221,7 @@ export const updateUserEmail = (user:IUpdateUserEmail) => async (dispatch:any) =
 
     try{
         
-        const res = await axios.post(SERVER_ADDRESS + 'user/update-email', user);
+        const res = await axios.post(SERVER_ADDRESS + '/user/update-email', user);
         let updatedUser = {
 
             id: res.data.id,
@@ -268,7 +268,7 @@ export const updateUserPassword = (user:IUpdateUserPassword) => async (dispatch:
 
     try{
         
-        const res = await axios.post(SERVER_ADDRESS + 'user/update-password', user);
+        const res = await axios.post(SERVER_ADDRESS + '/user/update-password', user);
         let updatedUser = {
 
             id: res.data.id,
@@ -314,7 +314,7 @@ interface IAddFunds {
 export const addFundsToUser = (user:IAddFunds) => async (dispatch:any) => {
 
     try{
-        const res = await axios.post(SERVER_ADDRESS + 'user/add-funds', user);
+        const res = await axios.post(SERVER_ADDRESS + '/user/add-funds', user);
         let updatedUser = {
 
             id: res.data.id,
@@ -361,7 +361,7 @@ interface IVerifyEmail {
 export const verifyUserEmail = (user:IVerifyEmail) => async (dispatch:any) => {
 
     try{
-        const res = await axios.post(SERVER_ADDRESS + 'user/verify', user);
+        const res = await axios.post(SERVER_ADDRESS + '/user/verify', user);
         let updatedUser = {
 
             id: res.data.id,
@@ -407,7 +407,7 @@ export const rejoinSession = (user:IRejoin) => async (dispatch:any) => {
 
     try{
         console.log("Rejoin methodbeginning");
-        const res = await axios.get(SERVER_ADDRESS + `user/get-user?id=${user.id}`);
+        const res = await axios.get(SERVER_ADDRESS + `/user/get-user?id=${user.id}`);
         console.log("Rejoin method");
         console.log(res);
         let logUser = {

@@ -11,11 +11,12 @@ import {
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { formatAsMoney } from "./listing";
-import { ImageViewer, Img } from "../ImageViewerComponent/ImageViewerComponent";
+import { ImageViewer } from "../ImageViewerComponent/ImageViewerComponent";
 import "./NewListing.css";
 import axios from "axios";
 import { SERVER_ADDRESS } from "../../server";
 import { Redirect } from "react-router";
+import { Img } from "../../Store/types";
 
 export const ListingEditor: React.FC<any> = (props?: any) => {
   useEffect(() => {
@@ -59,7 +60,7 @@ export const ListingEditor: React.FC<any> = (props?: any) => {
       setFsetDisabled(true);
 
       axios
-        .post(SERVER_ADDRESS + "listing/new", formData, {
+        .post(SERVER_ADDRESS + "/listing/new", formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .then((res) => {

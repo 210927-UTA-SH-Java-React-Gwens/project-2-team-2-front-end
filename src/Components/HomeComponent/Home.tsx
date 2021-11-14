@@ -1,47 +1,23 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Container,Row,Col,Card,Form,Button,CardGroup} from 'react-bootstrap';
-import {homeListings} from '../../Actions/ListingActions';
-import {searchListings} from '../../Actions/ListingActions';
+import {Container,Row,Col,Card,Form,Button,Modal} from 'react-bootstrap';
 import {ListingPreview} from '../ListingComponents/ListingPreview';
 import {BsFillBookmarkFill} from 'react-icons/bs';
 import {BsFillCartFill} from 'react-icons/bs';
 import {BsFillChatDotsFill} from 'react-icons/bs';
+import { getRecentListings, searchListings } from '../ListingComponents/listing';
+import { Listing } from '../../Store/types';
+import { defaultListing } from '../../Store/defaults';
+import { ListingView } from '../ListingComponents/ListingViewComponent';
+import './Home.css';
 
 
 
 export const Home: React.FC<any> = (history:any) => {
 
-    const appState = useSelector<any, any>((state) => state);
-    const dispatch = useDispatch();
-
-    let [listings, setListings] = useState([]);
-
-    /*
-    useEffect(() => {
-        console.log(appState);
-        loadListings();
-        setListings(appState.listing);
-    }, [appState.listing.length]);
-
-    const loadListings = async () => {
-        await dispatch(
-            searchListings()
-        );
-    }
-    */
-
-    useEffect(() => {
-        console.log(appState);
-        loadListings();
-        setListings(appState.listing);
-    }, [appState.listing.length]);
-
-    const loadListings = async () => {
-        await dispatch(
-            homeListings()
-        );
-    }
+    const [listings, setListings] = useState<Listing[]>([]);
+    const [search, setSearch] = useState("");
+    const [modalView, setModalView] = useState<Listing | null>(null);
 
     const toBookmarks = () => {
         history.history.push('/bookmarks');
@@ -55,25 +31,22 @@ export const Home: React.FC<any> = (history:any) => {
         history.history.push('/messages');
     }
 
-    const handleChange = (input:any) => {
-        filterResults(input);
+    const filterResults = (keyword:string) => {
+        searchListings(keyword)
+        .then(list => setListings(list));
     }
 
-    const filterResults = async (keyword:any) => {
-        await dispatch(
-            searchListings(keyword)
-        );
-    }
+    useEffect(() => { getRecentListings().then(list => setListings(list)); }, []);
 
     return (
         <div>
             <Form>
                 <Row className="align-items-left">
                     <Col md={4}>
-                        <Form.Control className="mb-3" id="search-bar" type="search" name="search" placeholder="Search by keyword..." defaultValue="" onChange={handleChange}/>
+                        <Form.Control className="mb-3" id="search-bar" type="search" name="search" placeholder="Search by keyword..." defaultValue="" onChange={(e) => setSearch(e.target.value)}/>
                     </Col>
                     <Col xs="auto">
-                        <Button type="submit" onClick={filterResults}>Search</Button>
+                        <Button type="submit" onClick={() => filterResults(search)}>Search</Button>
                     </Col>
                     <Col md={1}>
 
@@ -97,13 +70,20 @@ export const Home: React.FC<any> = (history:any) => {
             </div>
             <Container fluid>
                 <Row>
-                    {listings ? listings.map((listing:any) => {
+                    {(listings !== []) ? listings.map((listing) => {
                         return(
-                            <ListingPreview {...listing} key={listing.id} />
+                            <ListingPreview listing={listing}  key={listing.id} onClick={() => { setModalView(listing) }} />
                         );
                     }) : <h3>loading...</h3>}
                 </Row>    
             </Container>
+            <div style={{color: "red"}}>
+                <Modal dialogClassName="modal-70w" className="home-modal" show={modalView !== null} onHide={() => setModalView(null)}>
+                    <Modal.Body>
+                        <ListingView listing={modalView} />
+                    </Modal.Body>
+                </Modal>
+            </div>
         </div>
       );
 

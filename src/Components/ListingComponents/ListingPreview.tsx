@@ -1,7 +1,9 @@
-import React from 'react';
-import {Container,Row,Col,Card,Form,Button} from 'react-bootstrap';
-import { formatAsMoney } from "./listing";
+import React, { useEffect, useState } from 'react';
+import {Container,Row,Col,Card,Form,Button,Modal} from 'react-bootstrap';
+import { Img, Listing } from '../../Store/types';
+import { formatAsMoney, getPreviewImage } from "./listing";
 import './ListingPreview.css'
+import { ListingView } from './ListingViewComponent';
 
 
 
@@ -16,20 +18,26 @@ id: number,
 */
 
 
-export const ListingPreview : React.FC<any> = (listing:any) => {
-    console.log(listing);
+export const ListingPreview : React.FC<any> = (props:{listing:Listing}&any) => {
+    const [mainImage, setMainImage] = useState<Img | null>(null);
+
+    useEffect(() => {
+        getPreviewImage(props.listing.id).then((img:Img) => setMainImage(img));
+    }, [])
+
+
     return(
         <Col xs={3}>
-            <Card style={{margin:'10px'}}>
-                <Card.Img variant="top" src=""/>
+            <Card className='listing-card' onClick={props.onClick ? props.onClick : () => {}}>
+                <Card.Img variant="top" src={mainImage?.src} />
                 <Card.Body>
-                    <Card.Title>{listing.title}</Card.Title>
-                    <Card.Subtitle>{'$' + formatAsMoney(Number(listing.price).toString())}</Card.Subtitle>
-                    <Card.Text><div className="lv-desc" dangerouslySetInnerHTML={{__html: listing.content}}></div></Card.Text>
+                    <Card.Title>{props.listing.title}</Card.Title>
+                    <Card.Subtitle>{'$' + formatAsMoney(Number(props.listing.price).toString())}</Card.Subtitle>
+                    <Card.Text className="lv-desc" dangerouslySetInnerHTML={{__html: props.listing.content}}></Card.Text>
                     <Button variant="outline-primary" size="sm">View</Button>
                     <Button variant="outline-success" size="sm">Message</Button>
                     <Card.Footer>
-                        <small className="text-muted">Posted by {listing.poster.username}<br/> on {new Date(listing.posted).toLocaleString()}</small>
+                        <small className="text-muted">Posted by {props.listing.poster.username}<br/> on {new Date(props.listing.posted).toLocaleString()}</small>
                     </Card.Footer>
                 </Card.Body>
             </Card>
