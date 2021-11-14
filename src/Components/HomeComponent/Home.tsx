@@ -52,13 +52,13 @@ export const Home: React.FC<any> = (history:any) => {
 
                     </Col>
                     <Col xs="auto">
-                        <Button variant="outline-dark rounded-circle" onClick={toBookmarks}><BsFillBookmarkFill/></Button>
+                        <Button variant="outline-dark rounded-circle" title="Your bookmarks" onClick={toBookmarks}><BsFillBookmarkFill/></Button>
                     </Col>
                     <Col xs="auto">
-                        <Button variant="outline-dark rounded-circle" onClick={toCart}><BsFillCartFill/></Button>
+                        <Button variant="outline-dark rounded-circle" title="Your cart" onClick={toCart}><BsFillCartFill/></Button>
                     </Col>
                     <Col xs="auto">
-                        <Button variant="outline-dark rounded-circle" onClick={toMessages}><BsFillChatDotsFill/></Button>
+                        <Button variant="outline-dark rounded-circle" title="Your messages" onClick={toMessages}><BsFillChatDotsFill/></Button>
                     </Col>
 
                 </Row>

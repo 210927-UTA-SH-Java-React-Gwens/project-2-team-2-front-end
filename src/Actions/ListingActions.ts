@@ -44,7 +44,7 @@ interface HomeListings {
 export const homeListings = () => async (dispatch: any) => {
 
     try{
-        let res = await axios.get(SERVER_ADDRESS + 'listing/recent');
+        let res = await axios.get(SERVER_ADDRESS + '/listing/recent');
         console.log(res.data);
         return dispatch({
             type: HOME_LISTINGS,
@@ -69,7 +69,7 @@ interface SearchListings {
 export const searchListings = (keyword:any) => async (dispatch: any) => {
 
     try{
-        let res = await axios.get(SERVER_ADDRESS + 'listing/search/' + keyword);
+        let res = await axios.get(SERVER_ADDRESS + '/listing/search/' + keyword);
         console.log(res.data);
         return dispatch({
             type: SEARCH_LISTINGS,
