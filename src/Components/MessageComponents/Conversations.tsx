@@ -4,10 +4,11 @@ import {useHistory} from 'react-router-dom';
 import {Container,Row,Col,Card,Form,Button} from 'react-bootstrap';
 import {Header} from '../HeaderComponent/HeaderComponent';
 import { MessageContainer } from './MessageContainer';
+import { MessageListContainer } from './MessageListContainer';
 
 /* import { MessageField } from './MessageField';*/
 
-export const SendPost: React.FC<any> = () => {
+export const Conversations: React.FC<any> = () => {
 
     const appState = useSelector<any, any>((state) => state);
     const dispatch = useDispatch();
@@ -23,9 +24,9 @@ export const SendPost: React.FC<any> = () => {
 
     const Send = async () => {
         let postCont = {
-            author_id: appState.user.username,
-            reciever_id: appState.listing.author_id /* replace */,
-            listing_id: appState.listing.id /* replace */,
+            author_username: appState.user.username,
+            reciever_username: new URLSearchParams(window.location.href.split("?")[1]),
+            /*listing_id: new URLSearchParams(window.location.href.split("?")[2]),*/
             time: new Date(Date.now()).toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'}),
             content: {Content}
         }
@@ -44,7 +45,7 @@ export const SendPost: React.FC<any> = () => {
                 <MessageContainer/>
             </div>
             <div className="message-list-container">
-
+                <MessageListContainer/>
             </div>
             <div className="message-field-container">
             <form>

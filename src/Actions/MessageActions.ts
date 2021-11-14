@@ -16,9 +16,11 @@ interface PostMessage {
     content: string
 }
 
-export const getMessageByAuthor = (user:GetMessage) => async (dispatch: any) => {
+
+
+export const getConversation = (username1:String, username2:String) => async (dispatch: any) => {
     try{
-        let res = await axios.get('http://localhost:8080/');
+        let res = await axios.get('http://localhost:8080/messages/');
         console.log(res.data);
         return dispatch({
             type: GET_MESSAGE,
@@ -36,7 +38,7 @@ export const getMessageByAuthor = (user:GetMessage) => async (dispatch: any) => 
 export const postMessage = (user:PostMessage) => async (dispatch: any) => {
     let IMessages;
     try{
-        const res = await axios.post('htttp://localhost:8080/project-2-team-2-front-end/api/create' ,user);
+        const res = await axios.post('htttp://localhost:8080/messages/create' ,user);
 
         IMessages = {
             id: res.data.id,
