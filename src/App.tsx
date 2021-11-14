@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import { ListingEditor } from "./Components/ListingComponents/ListingEditorComponent";
-import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { UserComponent } from "./Components/UserComponent/UserComponent";
 import { ListingView } from "./Components/ListingComponents/ListingViewComponent";
 import { Header } from "./Components/HeaderComponent/HeaderComponent";

@@ -37,11 +37,10 @@ export const ListingView: React.FC<any> = (
             style={{ textAlign: "left" }}
           ></div>
           <p>
-            Posted by {props.listing.poster.username} on
-            {props.listing.posted.toLocaleString()}
+            Posted by {props.listing.poster.username} on {props.listing.posted}
           </p>
           {props.listing.purchaser && (
-            <p style={{ display: props.listing.purchaser ? "block" : "none" }}>
+            <p style={{ display: props.listing.purchaser ? "block" : "none", color: "red" }}>
               Purchased by{" "}
               {props.listing.purchaser.username
                 ? props.listing.purchaser.username

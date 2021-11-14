@@ -218,6 +218,8 @@ export async function* searchListings(keyword:string) {
   yield* getListingPreviewsByURL(`${SERVER_ADDRESS}/listing/search?query=${keyword}`);
 };
 
+
+
 export async function* getUserListings(username:string) {
   yield* getListingPreviewsByURL(`${SERVER_ADDRESS}/listing/search?user=${username}`);
 }

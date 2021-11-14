@@ -29,7 +29,7 @@ export const ListingPreview : React.FC<any> = (props:{listing:Listing}&any) => {
     return(
         <Col xs={3}>
             <Card className='listing-card' onClick={props.onClick ? props.onClick : () => {}}>
-                <Card.Img variant="top" src={mainImage?.src} />
+                <Card.Img variant="top" style={{padding: ".5em"}} src={mainImage?.src} />
                 <Card.Body>
                     <Card.Title>{props.listing.title}</Card.Title>
                     <Card.Subtitle>{'$' + formatAsMoney(Number(props.listing.price).toString())}</Card.Subtitle>
