@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 
+import { useHistory } from "react-router-dom";
+
+
 import {
   Container,
   Row,
@@ -27,21 +30,23 @@ import { Listing } from "../../Store/types";
 import { ListingView } from "../ListingComponents/ListingViewComponent";
 //import "./Home.css";
 
-export const Home: React.FC<any> = (history: any) => {
+export const Home: React.FC<any> = () => {
   const [listings, setListings] = useState<Listing[]>([]);
   const [modalView, setModalView] = useState<Listing | null>(null);
   const [search, setSearch] = useState("");
 
+  let history = useHistory();
+
   const toBookmarks = () => {
-    history.history.push("/bookmarks");
+    history.push("/bookmarks");
   };
 
   const toCart = () => {
-    history.history.push("/cart");
+    history.push("/cart");
   };
 
   const toMessages = () => {
-    history.history.push("/messages");
+    history.push("/messages");
   };
 
   const populateHome = async (keyword?: string) => {
