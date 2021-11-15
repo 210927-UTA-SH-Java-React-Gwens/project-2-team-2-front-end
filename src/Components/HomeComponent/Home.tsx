@@ -4,14 +4,10 @@ import { useHistory } from "react-router-dom";
 
 
 import {
-  Container,
   Row,
   Col,
-  Card,
   Form,
   Button,
-  Modal,
-	Spinner,
 } from "react-bootstrap";
 
 import {
@@ -25,15 +21,12 @@ import {
   searchListings,
 } from "../ListingComponents/listing";
 
-import { ListingPreview } from "../ListingComponents/ListingPreview";
 import { Listing } from "../../Store/types";
-import { ListingView } from "../ListingComponents/ListingViewComponent";
-//import "./Home.css";
+import { ListingLoader } from "../ListingComponents/ListingLoaderComponent";
 
 export const Home: React.FC<any> = () => {
-  const [listings, setListings] = useState<Listing[]>([]);
-  const [modalView, setModalView] = useState<Listing | null>(null);
   const [search, setSearch] = useState("");
+	const [url, setUrl] = useState("/recent")
 
   const history = useHistory();
 
@@ -49,28 +42,14 @@ export const Home: React.FC<any> = () => {
     history.push("/messages");
   };
 
-  const populateHome = async (keyword?: string) => {
-		let iListings:Listing[] = [];
-
-		for await (let listing of (keyword) ? searchListings(keyword) : getRecentListings()) {
-			iListings.push(listing);
-		}
-		
-		setListings(iListings);
-  };
-
-  const filterResults = (keyword: string) => {
-    populateHome(keyword);
-  };
-
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    filterResults(search);
+		if (search === '')
+			setUrl('/recent');
+		else setUrl(`/search?query=${search}`);
   };
 
-  useEffect(() => {
-		(async () => await populateHome())();
-  }, []);
+
 
   return (
     <div>
@@ -125,38 +104,7 @@ export const Home: React.FC<any> = () => {
         <h3>Latest Listings</h3>
         <br />
       </div>
-      <Container fluid>
-        <Row>
-          {listings != [] ? (
-            listings.map((listing) => {
-              return (
-                <ListingPreview
-                  listing={listing}
-                  key={listing.id}
-                  onClick={() => {
-                    setModalView(listing);
-                  }}
-                />
-              );
-            })) : (
-						<Spinner animation="border" role="status">
-							<span className="visually-hidden">Loading...</span>
-						</Spinner>)
-					}
-        </Row>
-      </Container>
-      <Modal
-        dialogClassName="modal-90w"
-        className="home-modal"
-        show={modalView !== null}
-        onHide={() => setModalView(null)}
-        centered
-				size="xl"
-      >
-        <Modal.Body>
-          <ListingView listing={modalView} />
-        </Modal.Body>
-      </Modal>
+      <ListingLoader url={url} />
     </div>
   );
 };
