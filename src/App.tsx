@@ -14,6 +14,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { VerifyAccountComponent } from "./Components/VerifyAccountComponent/VerifyAcountComponent";
 import { SessionManager } from "./Components/SessionManager/SessionManager";
+import { Conversations } from "./Components/MessageComponents/Conversations";
+import { MessageContainer } from "./Components/MessageComponents/MessageContainer";
 
 function App() {
   useEffect(() => {
@@ -41,9 +43,13 @@ function App() {
           <Route exact path="/activation-page">
             <VerifyAccountComponent/>
           </Route>
+          <Route exact path="/message">
+            <Conversations/>
+          </Route>
           <Route exact path="">
             <Home/>
           </Route>
+          
         </Switch>
       </Router>
     </div>

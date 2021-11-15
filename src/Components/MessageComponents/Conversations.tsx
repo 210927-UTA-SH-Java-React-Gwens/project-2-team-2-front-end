@@ -1,14 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router';
 import {Container,Row,Col,Card,Form,Button} from 'react-bootstrap';
 import {Header} from '../HeaderComponent/HeaderComponent';
 import { MessageContainer } from './MessageContainer';
 import { MessageListContainer } from './MessageListContainer';
 
+import { getConversation } from '../../Actions/MessageActions';
+
 /* import { MessageField } from './MessageField';*/
 
-export const Conversations: React.FC<any> = () => {
+export const Conversations: React.FC<any> = (prop:any) => {
 
     const appState = useSelector<any, any>((state) => state);
     const dispatch = useDispatch();
@@ -21,32 +23,42 @@ export const Conversations: React.FC<any> = () => {
         setContent(e.target.value);
     }
 
-
     const Send = async () => {
         let postCont = {
-            author_username: appState.user.username,
-            reciever_username: new URLSearchParams(window.location.href.split("?")[1]),
+            sender: appState.user.id,
+            receiver: prop.authorId,
             /*listing_id: new URLSearchParams(window.location.href.split("?")[2]),*/
             time: new Date(Date.now()).toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'}),
-            content: {Content}
+            content: Content
         }
 
         await dispatch(
-            postMessage({Content})
+            postMessage({postCont})
         );
     }
 
+    useEffect(() => {
+        test();
+    }, []);
+
+    const test = async () => {
+        await dispatch(
+            //replace 1 and 2 with {appState.user.id} and props whatever from ListingView
+            getConversation(appState.user.id, prop.authorId)
+        )}
+
+
     return (
         <div className="message">
-            <div className="gwen-header">
-                <Header/>
+            <div>
+                <h1>MessagesPageInfoGoesHere</h1>
             </div>
             <div className="message-container">
                 <MessageContainer/>
             </div>
-            <div className="message-list-container">
+            {/*<div className="message-list-container">
                 <MessageListContainer/>
-            </div>
+            </div>*/}
             <div className="message-field-container">
             <form>
                 <label>Message</label>

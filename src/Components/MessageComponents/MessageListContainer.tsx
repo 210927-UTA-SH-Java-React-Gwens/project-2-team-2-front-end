@@ -1,32 +1,29 @@
 import React, {useState, useEffect} from 'react';
-import axios from 'axios';
+import { getDistinctRecipients } from '../../Actions/MessageActions';
 import {useSelector} from 'react-redux';
 import { IUser } from '../../Store/types';
+import { MessageList } from './MessageList';
 
 
 export const MessageListContainer: React.FC<any> = (props:any) => {
 
     const appState = useSelector<any, any>((state) => state);
+    let [posts, setPosts] = useState([]);
 
-    let [recipients, setRecipients] = useState<IUser[]>([]);
 
     useEffect( () => {
-        axios.get('http://localhost:8080/message/recievers').then((res) =>{setRecipients(res.data)})
+        getDistinctRecipients(appState.user.id)
+        setPosts(appState.message)
     }, []);
 
-    
-        
-    
+
 
 //Logic to create array of message recipients if any exist
-    if (recipients.length) return(
+    return(
         <div>
-            {
-                recipients.map((recipient:any) => (
-                    <div className="recipients">{recipient}</div>
-                ))
-            }
+            {posts.map((post:any) => {
+                    return <MessageList {...post} key={post.postId} />
+            })}
         </div>
     ) 
-    else return <div></div>
 }

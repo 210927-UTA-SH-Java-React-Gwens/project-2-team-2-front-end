@@ -2,20 +2,22 @@ import React, {useState, useEffect} from 'react';
 import { getConversation } from '../../Actions/MessageActions';
 import {useSelector} from 'react-redux';
 
-export const Posts: React.FC<any> = (props:any) => {
-
+export const Post: React.FC<any> = (post:any) => {
+    
+/*
     const appState = useSelector<any, any>((state) => state);
 
     useEffect(() => {
         setInterval( async() => {
-            getConversation(appState.user.username, props.username2);
+            getConversation(1/*appState.user.id , 2 prop.whatever );
         }, 10000);
     },[])
     
+    */
     return(
         <div>
-            <h2>{appState.Message.sender_id}</h2>
-            <span><p>{appState.Message.content}</p><p>{appState.Message.time}</p></span>
+            <h2>{post.sender.username}</h2>
+            <span><p>{post.content}</p><p>{post.time}</p></span>
         </div>
     )
 }
