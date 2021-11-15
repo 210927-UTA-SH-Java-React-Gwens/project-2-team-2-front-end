@@ -177,7 +177,7 @@ export const getPreviewImage = (listing: number) => {
 };
 
 export async function* getListingPreviewsByURL(url: string) {
-  let res = await axios.get(`${SERVER_ADDRESS}/listing/${url}`);
+  let res = await axios.get(`${SERVER_ADDRESS}/listing${url}`);
   let listings = res.data;
   for (let i = 0; i < listings.length; i++)
     listings[i].price = listings[i].price / 100;
