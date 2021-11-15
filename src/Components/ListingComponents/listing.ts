@@ -3,7 +3,6 @@ import { SERVER_ADDRESS } from "../../server";
 import { defaultListing } from "../../Store/defaults";
 import { Img, Listing } from "../../Store/types";
 
-
 export const formatAsMoney = (value: string) => {
   let x: string = "",
     decimal: number = -1, // -1: No decimal, 0: decimal pt, 1: 1 number after point, 2: 2 numbers after point
@@ -54,17 +53,14 @@ export const formatAsMoney = (value: string) => {
   }
 };
 
-
-
 /**
  * Get all of the information needed to display a listing preview
  * @param l_id ID of the listing to get the preview info for
  * @returns Object representing a listing
  */
-export const getListingPreview = async(l_id: number) => {
+export const getListingPreview = async (l_id: number) => {
   let res = await axios.get(`${SERVER_ADDRESS}/listing/search?id=${l_id}`);
-  if (res.status === 404)
-    return defaultListing;
+  if (res.status === 404) return defaultListing;
 
   console.log(res.data);
 
@@ -77,21 +73,18 @@ export const getListingPreview = async(l_id: number) => {
     posted: new Date(res.data.posted),
     poster: res.data.poster,
     purchaser: res.data.purchaser,
-    image: await getPreviewImage(Number(res.data.id))
+    image: await getPreviewImage(Number(res.data.id)),
   };
-}
-
-
+};
 
 /**
  * Send a GET request to the server for all of a listing's images
  * @param l_id ID of the listing to get the images for
  * @param ignore (Optional) Index of an image to not grab (like the main image)
- * @returns An object containing all of the images or an object containing 
+ * @returns An object containing all of the images or an object containing
  * a bad status code and possibly an error message if an issue was encountered
  */
 export async function* getListingImages(l_id: number, ignore?: number) {
-  let images = {images: new Array<Img>()};
   let res = await axios.get(
     `${SERVER_ADDRESS}/listing-image/cnt?listingId=${l_id}`
   );
@@ -100,27 +93,24 @@ export async function* getListingImages(l_id: number, ignore?: number) {
     return {};
 
   for (let index of res.data) {
-    if (ignore && index === ignore)
-      continue;
-    
-    res = await axios.get(
-      `${SERVER_ADDRESS}/listing-image?listing=${l_id}&index=${index}`,
-      { responseType: "arraybuffer" }
-    );
+    if (ignore !== undefined && index !== ignore) {
+      res = await axios.get(
+        `${SERVER_ADDRESS}/listing-image?listing=${l_id}&index=${index}`,
+        { responseType: "arraybuffer" }
+      );
 
-    if (res.status === 200) {
-      let image = await convertImage({
-        bytes: res.data,
-        type: res.headers['content-type'],
-        listing: l_id,
-        index: index
-      });
-      yield image;
+      if (res.status === 200) {
+        let image = await convertImage({
+          bytes: res.data,
+          type: res.headers["content-type"],
+          listing: l_id,
+          index: index,
+        });
+        yield image;
+      }
     }
   }
-};
-
-
+}
 
 /** Type representing the data that needs to be passed to convertImage() */
 type ImgData = {
@@ -128,14 +118,14 @@ type ImgData = {
   type: string;
   listing: number;
   index: number;
-}
+};
 
 /**
  * Convert a byte array to a
  * @param data (ImgData) All of the data necessary to convert the image byte array
  * @returns Img object containing the converted image file
  */
-const convertImage = (data:ImgData) => {
+const convertImage = (data: ImgData) => {
   let blob = new Blob([data.bytes], {
     type: data.type,
   });
@@ -155,50 +145,49 @@ const convertImage = (data:ImgData) => {
       fr.onerror = reject;
       fr.readAsDataURL(blob); // WHY IS THIS ASYNC AND WHY CAN I NOT USE AWAIT THIS MESS IS ALL YOUR FAULT
     });
-  })().then(() => <Img> {
-      name: file.name,
-      data: file,
-      key: file.name.split(".")[0],
-      src: fr.result as string,
-  });
-}
-
-
+  })().then(
+    () =>
+      <Img>{
+        name: file.name,
+        data: file,
+        key: file.name.split(".")[0],
+        src: fr.result as string,
+      }
+  );
+};
 
 /**
  * Get the main image of a listing
  * @param listing Listing ID to get image for
  * @returns Img object
  */
-export const getPreviewImage = (listing:number) => {
-  return axios.get(
-    `${SERVER_ADDRESS}/listing-image?listing=${listing}&index=${0}`,
-    { responseType: "arraybuffer" }
-  ).then((res) => convertImage(<ImgData>{
-    bytes: res.data,
-    type: res.headers['content-type'],
-    listing: listing,
-    index: 0
-  }));
-}
+export const getPreviewImage = (listing: number) => {
+  return axios
+    .get(`${SERVER_ADDRESS}/listing-image?listing=${listing}&index=${0}`, {
+      responseType: "arraybuffer",
+    })
+    .then((res) =>
+      convertImage(<ImgData>{
+        bytes: res.data,
+        type: res.headers["content-type"],
+        listing: listing,
+        index: 0,
+      })
+    );
+};
 
-
-
-async function* getListingPreviewsByURL(url:string) {
-  let res = await axios.get(url);
-
+export async function* getListingPreviewsByURL(url: string) {
+  let res = await axios.get(`${SERVER_ADDRESS}/listing/${url}`);
   let listings = res.data;
-  for (let i = 0; i < listings.length; i++) 
+  for (let i = 0; i < listings.length; i++)
     listings[i].price = listings[i].price / 100;
 
   for (let listing of listings) {
     let img = await getPreviewImage(listing.id);
-    listing['image'] = img;
+    listing["image"] = img;
     yield listing;
   }
 }
-
-
 
 /**
  * Get the most recent listing objects
@@ -206,20 +195,21 @@ async function* getListingPreviewsByURL(url:string) {
  */
 export async function* getRecentListings() {
   yield* getListingPreviewsByURL(`${SERVER_ADDRESS}/listing/recent`);
-};
-
+}
 
 /**
  * Get all listings for which the title or description contains the passed-in keyword
  * @param keyword String to check against listing titles/descriptions
  * @returns List of listings that match the search criteria
  */
-export async function* searchListings(keyword:string) {
-  yield* getListingPreviewsByURL(`${SERVER_ADDRESS}/listing/search?query=${keyword}`);
-};
+export async function* searchListings(keyword: string) {
+  yield* getListingPreviewsByURL(
+    `${SERVER_ADDRESS}/listing/search?query=${keyword}`
+  );
+}
 
-
-
-export async function* getUserListings(username:string) {
-  yield* getListingPreviewsByURL(`${SERVER_ADDRESS}/listing/search?user=${username}`);
+export async function* getUserListings(username: string) {
+  yield* getListingPreviewsByURL(
+    `${SERVER_ADDRESS}/listing/search?user=${username}`
+  );
 }

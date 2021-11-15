@@ -6,7 +6,7 @@ import { UserComponent } from "./Components/UserComponent/UserComponent";
 import { ListingView } from "./Components/ListingComponents/ListingViewComponent";
 import { Header } from "./Components/HeaderComponent/HeaderComponent";
 import { Home } from "./Components/HomeComponent/Home";
-import { MyListingComponent } from "./Components/MyListingComponent/MyListingComponent";
+import { MyListings } from "./Components/MyListingsComponent/MyListingsComponent";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -36,7 +36,7 @@ function App() {
             <UserComponent />
           </Route>
           <Route exact path="/my-listing">
-            <MyListingComponent/>
+            <MyListings />
           </Route>
           <Route exact path="/activation-page">
             <VerifyAccountComponent/>

@@ -8,15 +8,14 @@ import { Container, Row, Col } from "react-bootstrap";
 export const ListingView: React.FC<any> = (
   props: { listing: Listing } & any
 ) => {
-  const [images, setImages] = useState<Img[]>([]);
+  const [images, setImages] = useState<Img[]>([props.listing?.image]);
 
   useEffect(() => {
+    let iImages:Img[] = [props.listing.image];
     (async () => {
-      let imageIter = getListingImages(props.listing.id);
-      let image = await imageIter.next();
-      while (!image.done) {
-        setImages(images.concat(image.value));
-        image = await imageIter.next();
+      for await (let image of getListingImages(props.listing.id, 0)) {
+        iImages.push(image);
+        setImages(iImages);
       }
     })();
   }, []);

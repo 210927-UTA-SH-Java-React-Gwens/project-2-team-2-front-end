@@ -2,8 +2,9 @@ import React, {useEffect, useState} from 'react';
 import {PageTitleComponent} from '../PageTitleComponent/PageTitleComponent';
 import { useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
+import { ListingLoader } from '../ListingComponents/ListingLoaderComponent';
 
-export const MyListingComponent: React.FC<any> = () => {
+export const MyListings: React.FC<any> = () => {
     const appState = useSelector<any, any>((state) => state);
 
     const history = useHistory();
@@ -19,8 +20,8 @@ export const MyListingComponent: React.FC<any> = () => {
 
     return (
         <div>
-            <PageTitleComponent name="My Listing" history={history}/>
-            <h1>here im gonna display our listings</h1>
+            <PageTitleComponent name="My Listings" history={history}/>
+            <ListingLoader url={'search?user='+appState.user.username} />
         </div>
 
     )
