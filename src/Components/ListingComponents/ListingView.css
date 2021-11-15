@@ -1,9 +1,12 @@
 .lv-desc {
   border: 2px solid #cdcdcd;
   border-radius: 1em;
-  width: fit-content;
-  padding: 1em;
-  margin: auto;
+  width: 100%;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 1em;
+  padding-right: auto;
+  margin: 1em 0;
 }
 
 .lv-desc p {
