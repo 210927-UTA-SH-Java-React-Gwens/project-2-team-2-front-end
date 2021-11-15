@@ -25,9 +25,10 @@ export const Conversations: React.FC<any> = (prop:any) => {
 
     const Send = async () => {
         let postCont = {
-            sender: appState.user,
-            receiver: prop.author,
-            time: new Date(Date.now()).toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'}),
+            sender: appState.user.username,
+            receiver: prop.author.username,
+            //time: new Date(Date.now()).toLocaleTimeString(navigator.language, {hour: '2-digit', minute:'2-digit'}),
+            time: Date.now,
             content: Content
         }
 
