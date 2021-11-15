@@ -21,7 +21,7 @@ export const MyListings: React.FC<any> = () => {
     return (
         <div>
             <PageTitleComponent name="My Listings" history={history}/>
-            <ListingLoader url={'search?user='+appState.user.username} />
+            <ListingLoader url={'/search?user='+appState.user.username} />
         </div>
 
     )
