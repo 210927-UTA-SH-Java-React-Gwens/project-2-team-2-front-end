@@ -12,7 +12,6 @@ export const MessageListContainer: React.FC<any> = (props:any) => {
 
 
     useEffect( () => {
-        getDistinctRecipients(appState.user.id)
         setPosts(appState.message)
     }, []);
 
